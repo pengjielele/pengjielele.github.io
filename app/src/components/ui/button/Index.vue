@@ -117,6 +117,7 @@ export default {
     color: #4b5cc4;
     &:hover {
       box-shadow: 0px 0px 2px #2b42ce;
+      color: #fff;
     }
   }
 }
@@ -134,6 +135,7 @@ export default {
     color: #afdd22;
     &:hover {
       box-shadow: 0px 0px 2px #b2e612;
+      color: #fff;
     }
   }
 }
@@ -151,6 +153,7 @@ export default {
     color: #adadad;
     &:hover {
       box-shadow: 0px 0px 2px #8e8c8c;
+      color: #fff;
     }
   }
 }
@@ -168,6 +171,7 @@ export default {
     color: #fa8c35;
     &:hover {
       box-shadow: 0px 0px 2px #f37d20;
+      color: #fff;
     }
   }
 }
@@ -185,6 +189,7 @@ export default {
     color: #d0241b;
     &:hover {
       box-shadow: 0px 0px 2px #f20c00;
+      color: #fff;
     }
   }
 }

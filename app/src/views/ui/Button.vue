@@ -10,6 +10,16 @@
         <hi-button type="warning">警告按钮</hi-button>
         <hi-button type="danger">危险按钮</hi-button>
       </div>
+      <div v-pre>
+        <div class="content">
+          <hi-button>默认按钮</hi-button>
+          <hi-button type="primary">主要按钮</hi-button>
+          <hi-button type="success">成功按钮</hi-button>
+          <hi-button type="info">信息按钮</hi-button>
+          <hi-button type="warning">警告按钮</hi-button>
+          <hi-button type="danger">危险按钮</hi-button>
+        </div>
+      </div>
     </div>
 
     <div class="card">
