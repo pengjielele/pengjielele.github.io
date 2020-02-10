@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" href="<%= BASE_URL %>favicon.ico">
+<title>rem</title>
+<style>
+html { font-size: 12px; }
+html.secondary-12px { font-size: 12px; }
+html.secondary-14px { font-size: 14px; }
+html.secondary-16px { font-size: 16px; }
+
+body { font-size: 18px; }
+a { text-decoration: none; color: #669; }
+.post-inner { font-family: sans-serif; }
+
+.post-inner .meta { font-size: 1rem; }
+
+.post-inner h2 { font-family: sans-serif; font-size: 32px; margin: 0.3em 0;}
+
+.figure { width: 200px; padding: 10px; border: 1px solid #AAA; }
+.figure img { width: 100%; }
+.figure.left { float: left; margin-right: 10px; margin-bottom: 10px; }
+.figure .title { font-size: 1rem; }
+
+.slideshow { margin-bottom: 1em; overflow: hidden; clear: both;}
+.slideshow img { width: 100%; height: 200px; }
+.slideshow .controls { text-align: center; font-size: 1.25rem; }
+.slideshow .previous { float: left; }
+.slideshow .next { float: right; }
+
+.slideshow .controls a { border: 1px solid #AAA; padding: 0 0.5rem; }
+.slideshow .controls a.active { background: #EEE; }
+
+.instructions { font-size: 1.2em; color: red; }
+a[href^="#secondary"] {
+  color: white; background: #C00; padding: 0 0.25em;
+}
+</style>
+</head>
+<body>
+  <noscript>
+    <strong>We're sorry but app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
+  <div id="app">
+    <div class="post-inner">
+      <h2 class="post"><a href="#">Post title</a></h2>
+
+      <div class="figure left">
+        <img src=
+        "data:image/gif;base64,R0lGODlhAQABAPAAAN3d3f///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" />
+
+        <div class="title">
+          A sample image to go along with the post
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="comments"><a href="#">Post Comment</a></span> | <span class=
+        "tags">Tags: <a href="#">example</a>, <a href="#">rem unit</a>, <a href=
+        "#">css</a></span>
+      </div>
+    <p class="instructions">Adjust size of secondary elements to be <a href="#secondary-12px">small</a>, <a href="#secondary-14px">medium</a> or <a href="#secondary-16px">large</a></p>
+      <p>This page contains a variety of interface elements. They are not intended to actually work, and instead are here to show how a subset of elements with dimensions specified in rem can change size when &lt;html&gt; element font size is adjusted. Meanwhile, all other content remains unaffected.</p>
+      <p>Since this is a technical demo, things will not look pretty, and that's OK.</p>
+
+    <div class="meta">
+      <span class="date">14 Mar 2013</span> | <span class="author">By Joe Author</span>
+    </div>
+
+      <div class="slideshow">
+        <div class="controls">
+          <a class="previous" href="#">Previous</a> <a class="next" href="#">Next</a>
+          <a class="page active" href="#">1</a> <a class="page" href="#">2</a> <a class=
+          "page" href="#">3</a> <a class="page" href="#">4</a> <a class="page" href=
+          "#">5</a>
+        </div>
+        <img src=
+        "data:image/gif;base64,R0lGODlhAQABAPAAAKqq/////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" />
+      </div>
+    </div>
+  </div>
+  <!-- built files will be auto injected -->
+</body>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() { 
+    [].forEach.call(document.querySelectorAll('a[href^="#secondary-"]'), function(el, i) {
+      el.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        var docEl = document.documentElement,
+            hash = this.getAttribute('href').slice(1);
+        if (!hash) return;
+        docEl.setAttribute("class", hash);
+        docEl.style.display = "none";
+        docEl.clientWidth;
+        docEl.style.display = "";         
+      }, false);
+    });
+  }, false); 
+</script>
+</html>

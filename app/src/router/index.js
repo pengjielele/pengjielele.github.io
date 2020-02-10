@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+import UIIndex from '@/views/ui/Index.vue'
+import UIButton from '@/views/ui/Button.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -9,6 +12,18 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/ui',
+    name: 'UIIndex',
+    component: UIIndex,
+    children: [
+      {
+        path: 'button',
+        name: 'button',
+        component: UIButton
+      }
+    ]
   },
   {
     path: '/about',
