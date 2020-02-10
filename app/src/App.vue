@@ -17,12 +17,12 @@ ul li {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  padding: 30px;
 }
 
 .nav {
-  padding: 20px;
+  padding: 20px 0;
 
   a {
     font-weight: bold;
@@ -32,5 +32,13 @@ ul li {
       color: #42b983;
     }
   }
+}
+
+.CodeMirror {
+  height: auto !important;
+}
+.code {
+  border: 1px solid #ddd;
+  margin: 15px 0;
 }
 </style>
