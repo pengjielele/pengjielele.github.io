@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 
 import UIIndex from '@/views/ui/Index.vue'
 import UIButton from '@/views/ui/Button.vue'
+import UIDistrictPicker from '@/views/ui/DistrictPicker.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
         path: 'button',
         name: 'button',
         component: UIButton
+      },
+      {
+        path: 'districtpicker',
+        name: 'districtpicker',
+        component: UIDistrictPicker
       }
     ]
   },
