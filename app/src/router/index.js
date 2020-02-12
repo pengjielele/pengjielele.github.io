@@ -6,6 +6,9 @@ import UIIndex from '@/views/ui/Index.vue'
 import UIButton from '@/views/ui/Button.vue'
 import UIDistrictPicker from '@/views/ui/DistrictPicker.vue'
 
+import CodeIndex from '@/views/code/Index.vue'
+import CodeJavascript from '@/views/code/Javascript.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,6 +31,18 @@ const routes = [
         path: 'districtpicker',
         name: 'districtpicker',
         component: UIDistrictPicker
+      }
+    ]
+  },
+  {
+    path: '/code',
+    name: 'codeIndex',
+    component: CodeIndex,
+    children: [
+      {
+        path: 'javascript',
+        name: 'javascript',
+        component: CodeJavascript
       }
     ]
   },
