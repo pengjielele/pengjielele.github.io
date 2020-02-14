@@ -5,6 +5,8 @@ import Home from '../views/Home.vue'
 import UIIndex from '@/views/ui/Index.vue'
 import UIButton from '@/views/ui/Button.vue'
 import UIDistrictPicker from '@/views/ui/DistrictPicker.vue'
+import UISwitch from '@/views/ui/Switch.vue'
+import UIInputTags from '@/views/ui/InputTags.vue'
 
 import CodeIndex from '@/views/code/Index.vue'
 import CodeJavascript from '@/views/code/Javascript.vue'
@@ -31,6 +33,16 @@ const routes = [
         path: 'districtpicker',
         name: 'districtpicker',
         component: UIDistrictPicker
+      },
+      {
+        path: 'switch',
+        name: 'switch',
+        component: UISwitch
+      },
+      {
+        path: 'inputtags',
+        name: 'inputtags',
+        component: UIInputTags
       }
     ]
   },
