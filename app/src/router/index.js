@@ -12,6 +12,11 @@ import CodeIndex from "@/views/code/Index.vue";
 import CodeJavascript from "@/views/code/Javascript.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
+import Welcome from "@/views/admin/Welcome.vue";
+import UserList from "@/views/admin/users/Index.vue";
+import ArticleList from "@/views/admin/articles/Index.vue";
+import TagList from "@/views/admin/tags/Index.vue";
+import ContactsList from "@/views/admin/contacts/Index.vue";
 
 Vue.use(VueRouter);
 
@@ -66,9 +71,30 @@ const routes = [
     component: AdminIndex,
     children: [
       {
-        path: "javascript",
-        name: "javascript",
-        component: CodeJavascript
+        path: "welcome",
+        name: "welcome",
+        component: Welcome
+      },
+      {
+        path: "users",
+        name: "users",
+        component: UserList
+      },
+      {
+        path: "tags",
+        name: "tags",
+        component: TagList
+      },
+      {
+        path: "articles",
+        name: "articles",
+        component: ArticleList
+      },
+      {
+        path: "contacts",
+        name: "contacts",
+        component: ContactsList,
+        meta: { title: "联系人列表" }
       }
     ]
   },

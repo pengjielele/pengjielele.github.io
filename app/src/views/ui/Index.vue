@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-ui">
     <div class="nav">
       <router-link to="/ui/button">button</router-link> |
       <router-link to="/ui/districtpicker">districtPicker</router-link> |

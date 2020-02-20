@@ -5,20 +5,14 @@ import store from "./store";
 
 import "@/assets/font-awesome-4.7.0/scss/font-awesome.scss";
 
-import VueCodemirror from "vue-codemirror";
-import "codemirror/lib/codemirror.css";
-Vue.use(VueCodemirror, {
-  options: {
-    mode: "text/html",
-    lineNumbers: false,
-    collapseIdentical: false,
-    highlightDifferences: false,
-    readOnly: true,
-    autofocus: false
-  }
-});
+import "@/plugins/element-ui.js";
+import "@/plugins/vue-codemirror.js";
 
 Vue.config.productionTip = false;
+
+import "@/assets/css/global.scss";
+// import "@/assets/css/base.scss";
+// import "@/assets/css/reset.scss";
 
 new Vue({
   router,
