@@ -1,13 +1,13 @@
-const webpack = require('webpack')
+const webpack = require("webpack");
 
 module.exports = {
   configureWebpack: {
     plugins: [
       new webpack.BannerPlugin({
         banner: () => {
-          return 'Last Build On ' + new Date()
+          return "Last Build On " + new Date();
         }
       })
     ]
   }
-}
+};

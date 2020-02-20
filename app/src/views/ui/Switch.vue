@@ -8,17 +8,17 @@
 </template>
 
 <script>
-import HiSwitch from '@/components/ui/switch/Index.vue'
+import HiSwitch from "@/components/ui/switch/Index.vue";
 
 export default {
   components: {
     HiSwitch
   },
-  data () {
+  data() {
     return {
-      title: '',
+      title: "",
       codes: []
-    }
+    };
   }
-}
+};
 </script>

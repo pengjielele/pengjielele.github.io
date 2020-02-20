@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "lint-fix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "copy": "cp -r dist/* ../",
     "deploy": "yarn run build && yarn run copy"
   },
@@ -28,6 +29,23 @@
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "express": "^4.17.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.18.2"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   }
 }

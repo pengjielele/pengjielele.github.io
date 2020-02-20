@@ -3,8 +3,12 @@
     <div class="district-header">
       <div :class="['tabs-' + tab]">
         <span @click="handleTabProvince">{{ currentProvinceName }}</span>
-        <span v-if="showCityTab && !onlyProvince" @click="handleTabCity">{{ currentCityName }}</span>
-        <span v-if="showAreaTab && !onlyProvince && !hideArea">{{ currentAreaName }}</span>
+        <span v-if="showCityTab && !onlyProvince" @click="handleTabCity">{{
+          currentCityName
+        }}</span>
+        <span v-if="showAreaTab && !onlyProvince && !hideArea">{{
+          currentAreaName
+        }}</span>
       </div>
     </div>
     <div class="district-body" :style="{ height: height + 'px' }">
@@ -16,7 +20,7 @@
             :class="[
               'item',
               {
-                'selected': province.name === currentProvinceName ? true : false
+                selected: province.name === currentProvinceName ? true : false
               }
             ]"
             @click="handleChooseProvince(province)"
@@ -33,7 +37,7 @@
             :class="[
               'item',
               {
-                'selected': province.name === currentProvinceName ? true : false
+                selected: province.name === currentProvinceName ? true : false
               }
             ]"
             @click="handleChooseProvince(province)"
@@ -48,7 +52,7 @@
             :class="[
               'item',
               {
-                'selected': city.name === currentCityName ? true : false
+                selected: city.name === currentCityName ? true : false
               }
             ]"
             @click="handleChooseCity(city)"
@@ -63,7 +67,7 @@
             :class="[
               'item',
               {
-                'selected': area.name === currentAreaName ? true : false
+                selected: area.name === currentAreaName ? true : false
               }
             ]"
             @click="handleChooseArea(area)"
@@ -77,24 +81,24 @@
 </template>
 
 <script>
-import DISTRICTS from './districts.js'
+import DISTRICTS from "./districts.js";
 
-const DEFAULT_CODE = '0'
+const DEFAULT_CODE = "0";
 
 export default {
-  name: 'DistrictPicker',
+  name: "DistrictPicker",
   props: {
     province: {
       type: String,
-      default: ''
+      default: ""
     },
     city: {
       type: String,
-      default: ''
+      default: ""
     },
     area: {
       type: String,
-      default: ''
+      default: ""
     },
     onlyProvince: {
       type: Boolean,
@@ -106,138 +110,142 @@ export default {
     },
     height: {
       type: String,
-      default: '300'
+      default: "300"
     }
   },
-  created () {
-    this.DISTRICTS = DISTRICTS
-    this.init()
+  created() {
+    this.DISTRICTS = DISTRICTS;
+    this.init();
   },
   methods: {
-    init () {
-      this.getProvinces()
-      this.currentProvinceName = this.province || this.default.provinceName
-      this.currentCityName = this.city || this.default.cityName
-      this.currentAreaName = this.area || this.default.areaName
+    init() {
+      this.getProvinces();
+      this.currentProvinceName = this.province || this.default.provinceName;
+      this.currentCityName = this.city || this.default.cityName;
+      this.currentAreaName = this.area || this.default.areaName;
 
-      const provinceObj = this.DISTRICTS[DEFAULT_CODE]
+      const provinceObj = this.DISTRICTS[DEFAULT_CODE];
       for (let key in provinceObj) {
         if (provinceObj[key] === this.currentProvinceName) {
-          const province = { id: key, name: provinceObj[key] }
-          this.handleChooseProvince(province)
-          const cityObj = this.DISTRICTS[province.id]
+          const province = { id: key, name: provinceObj[key] };
+          this.handleChooseProvince(province);
+          const cityObj = this.DISTRICTS[province.id];
           for (let key in cityObj) {
             if (cityObj[key] === this.currentCityName) {
-              const city = { id: key, name: cityObj[key] }
-              this.handleChooseCity(city)
-              break
+              const city = { id: key, name: cityObj[key] };
+              this.handleChooseCity(city);
+              break;
             }
           }
-          break
+          break;
         }
       }
     },
-    handleTabProvince () {
-      this.tab = 1
-      this.showCityTab = false
-      this.showAreaTab = false
-      this.resetCity()
-      this.resetArea()
+    handleTabProvince() {
+      this.tab = 1;
+      this.showCityTab = false;
+      this.showAreaTab = false;
+      this.resetCity();
+      this.resetArea();
     },
-    handleTabCity () {
-      this.tab = 2
-      this.showCityTab = true
-      this.showAreaTab = true
-      this.resetArea()
+    handleTabCity() {
+      this.tab = 2;
+      this.showCityTab = true;
+      this.showAreaTab = true;
+      this.resetArea();
     },
-    handleChooseProvince (province) {
-      this.currentProvinceName = province.name
-      this.currentProvinceId = province.id
-      this.selectedProvince = province
+    handleChooseProvince(province) {
+      this.currentProvinceName = province.name;
+      this.currentProvinceId = province.id;
+      this.selectedProvince = province;
       if (this.onlyProvince) {
-        this.$emit('selected', province)
+        this.$emit("selected", province);
       } else {
-        this.tab = 2
-        this.showCityTab = true
-        this.getCities(province.id)
+        this.tab = 2;
+        this.showCityTab = true;
+        this.getCities(province.id);
       }
     },
-    handleChooseCity (city) {
-      this.currentCityName = city.name
-      this.currentCityId = city.id
-      this.selectedCity = city
+    handleChooseCity(city) {
+      this.currentCityName = city.name;
+      this.currentCityId = city.id;
+      this.selectedCity = city;
       if (this.hideArea) {
-        const { selectedProvince, selectedCity } = this
-        const result = { 'province': selectedProvince, 'city': selectedCity }
-        this.$emit('selected', result)
+        const { selectedProvince, selectedCity } = this;
+        const result = { province: selectedProvince, city: selectedCity };
+        this.$emit("selected", result);
       } else {
-        this.tab = 3
-        this.showAreaTab = true
-        this.getAreas(city.id)
+        this.tab = 3;
+        this.showAreaTab = true;
+        this.getAreas(city.id);
       }
     },
-    handleChooseArea (area) {
-      this.currentAreaName = area.name
-      this.currentAreaId = area.id
-      this.selectedArea = area
-      const { selectedProvince, selectedCity, selectedArea } = this
-      const result = { 'province': selectedProvince, 'city': selectedCity, 'area': selectedArea }
-      this.$emit('selected', result)
+    handleChooseArea(area) {
+      this.currentAreaName = area.name;
+      this.currentAreaId = area.id;
+      this.selectedArea = area;
+      const { selectedProvince, selectedCity, selectedArea } = this;
+      const result = {
+        province: selectedProvince,
+        city: selectedCity,
+        area: selectedArea
+      };
+      this.$emit("selected", result);
     },
-    getProvinces () {
-      let provinces = []
-      const provinceObj = this.DISTRICTS[DEFAULT_CODE]
+    getProvinces() {
+      let provinces = [];
+      const provinceObj = this.DISTRICTS[DEFAULT_CODE];
 
       for (let key in provinceObj) {
-        provinces.push({ id: key, name: provinceObj[key] })
+        provinces.push({ id: key, name: provinceObj[key] });
       }
-      this.provinces = provinces
+      this.provinces = provinces;
     },
-    getCities (provinceId) {
-      let cities = []
-      const cityObj = this.DISTRICTS[provinceId]
+    getCities(provinceId) {
+      let cities = [];
+      const cityObj = this.DISTRICTS[provinceId];
 
       for (let key in cityObj) {
-        cities.push({ id: key, name: cityObj[key] })
+        cities.push({ id: key, name: cityObj[key] });
       }
-      this.cities = cities
+      this.cities = cities;
     },
-    getAreas (cityId) {
-      let areas = []
-      const areaObj = this.DISTRICTS[cityId]
+    getAreas(cityId) {
+      let areas = [];
+      const areaObj = this.DISTRICTS[cityId];
 
       for (let key in areaObj) {
-        areas.push({ id: key, name: areaObj[key] })
+        areas.push({ id: key, name: areaObj[key] });
       }
-      this.areas = areas
+      this.areas = areas;
     },
-    resetCity () {
-      this.currentCityName = this.default.cityName
+    resetCity() {
+      this.currentCityName = this.default.cityName;
     },
-    resetArea () {
-      this.currentAreaName = this.default.areaName
+    resetArea() {
+      this.currentAreaName = this.default.areaName;
     }
   },
-  data () {
+  data() {
     return {
       default: {
-        provinceName: '省',
-        cityName: '市',
-        areaName: '区'
+        provinceName: "省",
+        cityName: "市",
+        areaName: "区"
       },
       provinces: [],
       cities: [],
       areas: [],
-      currentProvinceName: '',
-      currentCityName: '',
-      currentAreaName: '',
+      currentProvinceName: "",
+      currentCityName: "",
+      currentAreaName: "",
       tab: 1,
       showCityTab: false,
       showAreaTab: false,
       DISTRICTS: null
-    }
+    };
   }
-}
+};
 </script>
 
 <style>
@@ -276,7 +284,7 @@ export default {
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
-.district-picker .district-body .list .selected{
+.district-picker .district-body .list .selected {
   color: red;
 }
 </style>

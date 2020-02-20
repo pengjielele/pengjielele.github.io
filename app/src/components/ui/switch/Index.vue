@@ -1,73 +1,85 @@
 <template>
-  <label :class="['hi-switch',{ on: checked }]" :style="switchStyle">
-    <input type="checkbox" :checked="checked" class="hi-switch-input" @change="handleChange"/>
-    <span :class="['hi-switch-label',{ on: checked }]">{{ checked ? labels.checked : labels.unchecked }}</span>
-    <div :class="['hi-switch-button',{ on: checked }]" :style="switchButtonStyle"></div>
+  <label :class="['hi-switch', { on: checked }]" :style="switchStyle">
+    <input
+      type="checkbox"
+      :checked="checked"
+      class="hi-switch-input"
+      @change="handleChange"
+    />
+    <span :class="['hi-switch-label', { on: checked }]">{{
+      checked ? labels.checked : labels.unchecked
+    }}</span>
+    <div
+      :class="['hi-switch-button', { on: checked }]"
+      :style="switchButtonStyle"
+    ></div>
   </label>
 </template>
 
 <script>
 export default {
-  name: 'HiSwitch',
+  name: "HiSwitch",
   props: {
     width: {
       type: String,
-      default: '60'
+      default: "60"
     },
     height: {
       type: String,
-      default: '25'
+      default: "25"
     },
     colors: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          checked: '#75c791',
-          unchecked: '#bfcbd9'
-        }
+          checked: "#75c791",
+          unchecked: "#bfcbd9"
+        };
       }
     },
     labels: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          checked: 'on',
-          unchecked: 'off'
-        }
+          checked: "on",
+          unchecked: "off"
+        };
       }
     }
   },
   computed: {
-    switchStyle () {
+    switchStyle() {
       return {
         width: `${this.width}px`,
         height: `${this.height}px`,
-        borderRadius: parseInt(this.height / 2) + 'px',
-        backgroundColor: this.checked ? this.colors.checked : this.colors.unchecked
-      }
+        borderRadius: parseInt(this.height / 2) + "px",
+        backgroundColor: this.checked
+          ? this.colors.checked
+          : this.colors.unchecked
+      };
     },
-    switchButtonStyle () {
-      const height = this.height - 4
+    switchButtonStyle() {
+      const height = this.height - 4;
       return {
         width: `${height}px`,
         height: `${height}px`,
-        borderRadius: parseInt(height / 2) + 'px'
-      }
+        borderRadius: parseInt(height / 2) + "px"
+      };
     }
   },
   methods: {
-    handleChange (event) {
+    handleChange() {
       // this.$emit('click', event)
-      this.checked = !this.checked
+      this.checked = !this.checked;
     }
   },
-  data () {
+  data() {
     return {
-      title: '',
+      title: "",
       checked: false
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

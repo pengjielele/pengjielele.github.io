@@ -20,15 +20,15 @@
 
 <script>
 export default {
-  name: 'HiButton',
+  name: "HiButton",
   props: {
     type: {
       type: String,
-      default: 'default'
+      default: "default"
     },
     size: {
       type: String,
-      default: 'default'
+      default: "default"
     },
     disabled: {
       type: Boolean,
@@ -36,7 +36,7 @@ export default {
     },
     radius: {
       type: String,
-      default: '0'
+      default: "0"
     },
     plain: {
       type: Boolean,
@@ -57,16 +57,16 @@ export default {
     }
   },
   methods: {
-    handleClick (event) {
-      this.$emit('click', event)
+    handleClick(event) {
+      this.$emit("click", event);
     }
   },
-  data () {
+  data() {
     return {
-      title: 'Button'
-    }
+      title: "Button"
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

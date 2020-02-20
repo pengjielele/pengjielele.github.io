@@ -1,7 +1,7 @@
 <template>
   <div class="preview">
-    <div class="card" v-for="(item,index) in codes" v-bind:key="item.id">
-      <h3 class="title">{{ index + 1  + '. '}}{{ item.title }}</h3>
+    <div class="card" v-for="(item, index) in codes" v-bind:key="item.id">
+      <h3 class="title">{{ index + 1 + ". " }}{{ item.title }}</h3>
       <div class="code">
         <codemirror v-model="item.content"></codemirror>
       </div>
@@ -11,13 +11,13 @@
 
 <script>
 export default {
-  name: 'Javascript',
-  data () {
+  name: "Javascript",
+  data() {
     return {
       codes: [
         {
-          id: '1',
-          title: '是否是空对象',
+          id: "1",
+          title: "是否是空对象",
           content: `
 const isEmpty = obj => {
   return Object.keys(obj).length === 0 && obj.constructor === Object
@@ -33,8 +33,8 @@ const isEmpty = value => {
           `
         },
         {
-          id: '2',
-          title: '生成唯一标识符',
+          id: "2",
+          title: "生成唯一标识符",
           content: `
 const uuidv4 = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
@@ -46,8 +46,8 @@ const uuidv4 = () => {
           `
         },
         {
-          id: '3',
-          title: '防抖函数',
+          id: "3",
+          title: "防抖函数",
           content: `
 const debounce = (func, wait, immediate) => {
   var timeout;
@@ -67,7 +67,7 @@ const debounce = (func, wait, immediate) => {
           `
         }
       ]
-    }
+    };
   }
-}
+};
 </script>

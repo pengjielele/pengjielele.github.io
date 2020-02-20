@@ -40,7 +40,7 @@
         <hi-button type="warning" radius="5" block>警告按钮</hi-button>
         <hi-button type="danger" radius="5" block>危险按钮</hi-button>
       </div>
-       <div class="code">
+      <div class="code">
         <codemirror v-model="codes[2]" :options="cmOption"></codemirror>
       </div>
     </div>
@@ -55,7 +55,7 @@
         <hi-button type="warning" radius="5" plain>警告按钮</hi-button>
         <hi-button type="danger" radius="5" plain>危险按钮</hi-button>
       </div>
-       <div class="code">
+      <div class="code">
         <codemirror v-model="codes[3]" :options="cmOption"></codemirror>
       </div>
     </div>
@@ -69,7 +69,7 @@
         <hi-button type="success" size="medium">medium</hi-button>
         <hi-button type="info" size="large">large</hi-button>
       </div>
-       <div class="code">
+      <div class="code">
         <codemirror v-model="codes[4]" :options="cmOption"></codemirror>
       </div>
     </div>
@@ -84,7 +84,7 @@
         <hi-button type="warning" disabled>警告按钮</hi-button>
         <hi-button type="danger" disabled>危险按钮</hi-button>
       </div>
-       <div class="code">
+      <div class="code">
         <codemirror v-model="codes[5]" :options="cmOption"></codemirror>
       </div>
     </div>
@@ -99,7 +99,7 @@
         <hi-button type="warning">警告按钮</hi-button>
         <hi-button type="danger">危险按钮</hi-button>
       </div>
-       <div class="code">
+      <div class="code">
         <codemirror v-model="codes[6]" :options="cmOption"></codemirror>
       </div>
     </div>
@@ -114,7 +114,7 @@
         <hi-button type="warning" icon="fa-cog">警告按钮</hi-button>
         <hi-button type="danger" icon="fa-square">危险按钮</hi-button>
       </div>
-       <div class="code">
+      <div class="code">
         <codemirror v-model="codes[7]" :options="cmOption"></codemirror>
       </div>
     </div>
@@ -122,14 +122,14 @@
 </template>
 
 <script>
-import HiButton from '@/components/ui/button/Index.vue'
+import HiButton from "@/components/ui/button/Index.vue";
 
 export default {
-  name: 'Preview',
+  name: "Preview",
   components: {
     HiButton
   },
-  data () {
+  data() {
     return {
       codes: [
         `
@@ -197,14 +197,14 @@ export default {
 `
       ],
       cmOption: {
-        mode: 'text/html',
+        mode: "text/html",
         lineNumbers: false,
         collapseIdentical: false,
         highlightDifferences: false,
         readOnly: true,
         autofocus: false
       }
-    }
+    };
   }
-}
+};
 </script>
