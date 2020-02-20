@@ -88,7 +88,8 @@ const routes = [
       {
         path: "articles",
         name: "articles",
-        component: ArticleList
+        component: ArticleList,
+        meta: { title: "文章列表" }
       },
       {
         path: "contacts",

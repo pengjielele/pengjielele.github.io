@@ -2,6 +2,11 @@
   <div class="container">
     <el-container>
       <el-header>
+        <div class="logo">
+          <h1 class="title">
+            <router-link to="/admin/welcome/">后台管理系统</router-link>
+          </h1>
+        </div>
         <div class="header-right">
           <el-dropdown>
             <div class="el-dropdown-link center">
@@ -60,7 +65,7 @@
               </template>
               <el-menu-item index="2-1"
                 ><router-link class="menu-link" to="/admin/tags"
-                  >查看标签列表</router-link
+                  >标签列表</router-link
                 ></el-menu-item
               >
             </el-submenu>
@@ -72,7 +77,7 @@
               </template>
               <el-menu-item index="3-1"
                 ><router-link class="menu-link" to="/admin/articles"
-                  >查看文章列表</router-link
+                  >文章列表</router-link
                 ></el-menu-item
               >
             </el-submenu>
