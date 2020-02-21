@@ -13,10 +13,17 @@ import CodeJavascript from "@/views/code/Javascript.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
-import UserList from "@/views/admin/users/Index.vue";
+
+import UserList from "@/views/admin/user/List.vue";
 import ArticleList from "@/views/admin/articles/Index.vue";
 import TagList from "@/views/admin/tags/Index.vue";
 import ContactsList from "@/views/admin/contacts/Index.vue";
+
+import UserIndex from "@/views/user/Index.vue";
+import UserLogin from "@/views/user/Login.vue";
+import UserRegister from "@/views/user/Register.vue";
+import UserResetPwd from "@/views/user/ResetPwd.vue";
+import UserFindPwd from "@/views/user/FindPwd.vue";
 
 Vue.use(VueRouter);
 
@@ -76,14 +83,15 @@ const routes = [
         component: Welcome
       },
       {
-        path: "users",
-        name: "users",
-        component: UserList
-      },
-      {
         path: "tags",
         name: "tags",
         component: TagList
+      },
+      {
+        path: "users",
+        name: "users",
+        component: UserList,
+        meta: { title: "用户列表" }
       },
       {
         path: "articles",
@@ -96,6 +104,33 @@ const routes = [
         name: "contacts",
         component: ContactsList,
         meta: { title: "联系人列表" }
+      }
+    ]
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: UserIndex,
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: UserLogin
+      },
+      {
+        path: "register",
+        name: "register",
+        component: UserRegister
+      },
+      {
+        path: "resetpwd",
+        name: "resetpwd",
+        component: UserResetPwd
+      },
+      {
+        path: "findpwd",
+        name: "findpwd",
+        component: UserFindPwd
       }
     ]
   },
