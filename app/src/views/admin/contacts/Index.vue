@@ -1,5 +1,5 @@
 <template>
-  <div class="page page-list page-contacts">
+  <div class="page page-contacts">
     <div class="page-header">
       <h1 class="title">{{ $route.meta.title }}</h1>
     </div>

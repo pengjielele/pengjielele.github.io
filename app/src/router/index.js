@@ -14,10 +14,11 @@ import CodeJavascript from "@/views/code/Javascript.vue";
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
 
-import UserList from "@/views/admin/user/List.vue";
+import CategoryList from "@/views/admin/category/Index.vue";
 import ArticleList from "@/views/admin/articles/Index.vue";
 import TagList from "@/views/admin/tags/Index.vue";
 import ContactsList from "@/views/admin/contacts/Index.vue";
+import CardList from "@/views/admin/card/Index.vue";
 
 import UserIndex from "@/views/user/Index.vue";
 import UserLogin from "@/views/user/Login.vue";
@@ -80,18 +81,20 @@ const routes = [
       {
         path: "welcome",
         name: "welcome",
-        component: Welcome
+        component: Welcome,
+        meta: { title: "欢迎" }
       },
       {
         path: "tags",
         name: "tags",
-        component: TagList
+        component: TagList,
+        meta: { title: "标签列表" }
       },
       {
-        path: "users",
-        name: "users",
-        component: UserList,
-        meta: { title: "用户列表" }
+        path: "category",
+        name: "category",
+        component: CategoryList,
+        meta: { title: "类别列表" }
       },
       {
         path: "articles",
@@ -104,6 +107,12 @@ const routes = [
         name: "contacts",
         component: ContactsList,
         meta: { title: "联系人列表" }
+      },
+      {
+        path: "card",
+        name: "card",
+        component: CardList,
+        meta: { title: "卡片列表" }
       }
     ]
   },

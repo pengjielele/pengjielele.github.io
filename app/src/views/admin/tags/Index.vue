@@ -1,7 +1,7 @@
 <template>
-  <div class="page page-list">
+  <div class="page page-list page-tags">
     <div class="page-header">
-      <h1 class="title">标签列表</h1>
+      <h1 class="title">{{ $route.meta.title }}</h1>
     </div>
     <div class="page-body">
       <div class="search-form">

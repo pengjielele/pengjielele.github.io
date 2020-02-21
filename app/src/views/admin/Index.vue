@@ -49,11 +49,11 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-s-order"></i>
-                <span>用户管理</span>
+                <span>类别管理</span>
               </template>
               <el-menu-item index="1-1"
-                ><router-link class="menu-link" to="/admin/users"
-                  >用户列表</router-link
+                ><router-link class="menu-link" to="/admin/category"
+                  >类别列表</router-link
                 ></el-menu-item
               >
             </el-submenu>
@@ -90,6 +90,18 @@
               <el-menu-item index="3-1"
                 ><router-link class="menu-link" to="/admin/contacts"
                   >联系人列表</router-link
+                ></el-menu-item
+              >
+            </el-submenu>
+
+            <el-submenu index="5">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>卡片管理</span>
+              </template>
+              <el-menu-item index="3-1"
+                ><router-link class="menu-link" to="/admin/card"
+                  >卡片列表</router-link
                 ></el-menu-item
               >
             </el-submenu>
