@@ -11,6 +11,8 @@ import UIInputTags from "@/views/ui/InputTags.vue";
 import CodeIndex from "@/views/code/Index.vue";
 import CodeJavascript from "@/views/code/Javascript.vue";
 
+import NoteIndex from "@/views/note/Index.vue";
+
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
 
@@ -76,6 +78,11 @@ const routes = [
         component: CodeJavascript
       }
     ]
+  },
+  {
+    path: "/note",
+    name: "noteIndex",
+    component: NoteIndex
   },
   {
     path: "/admin",
