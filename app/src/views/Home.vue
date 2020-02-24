@@ -75,4 +75,28 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .page-home {
+    .inner {
+      width: auto;
+    }
+    .row {
+      flex-wrap: wrap;
+      .col-4 {
+        margin: 0;
+        width: 100%;
+        flex: 1 1 100%;
+        max-width: unset;
+        margin-bottom: 20px;
+      }
+    }
+    .action-list {
+      margin-bottom: 0;
+      .action-item {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
 </style>

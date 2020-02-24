@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 .page-note {
   width: 800px;
-  margin: 20px auto;
+  margin: 50px auto 20px;
   .list {
     .item {
       margin-bottom: 20px;
@@ -55,6 +55,12 @@ export default {
         text-align: right;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px){
+  .page-note {
+    width: 100%;
   }
 }
 </style>

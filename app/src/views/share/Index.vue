@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 .page-share {
   width: 800px;
-  margin: 20px auto;
+  margin: 50px auto 20px;
   .list {
     .item {
       margin-bottom: 20px;
@@ -39,7 +39,9 @@ export default {
       .content {
         line-height: 30px;
         display: flex;
+        word-break: break-all;
         .link {
+          display: inline-block;
           margin-left: 10px;
           text-decoration: none;
         }
@@ -47,6 +49,21 @@ export default {
       .title {
         font-size: 16px;
         margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-share {
+    width: 100%;
+    .list .item {
+      .content {
+        display: flex;
+        flex-direction: column;
+        .link {
+          margin: 0;
+        }
       }
     }
   }

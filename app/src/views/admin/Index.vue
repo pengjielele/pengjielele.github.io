@@ -115,7 +115,6 @@
 
 <script>
 import "@/assets/css/reset.scss";
-import "@/assets/css/admin.scss";
 
 export default {
   created() {},
