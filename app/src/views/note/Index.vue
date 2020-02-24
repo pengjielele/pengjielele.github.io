@@ -39,10 +39,10 @@ export default {
 <style lang="scss" scoped>
 .page-note {
   width: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
   .list {
     .item {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       overflow: wrap;
       box-shadow: 1px 1px 5px #ddd;
       padding: 15px;

@@ -22,16 +22,22 @@
         </li>
       </ul>
       <ul class="action-list row">
-        <li class="action-item col-6" @click="handleJump('/code')">
+        <li class="action-item col-4" @click="handleJump('/code')">
           <h1 class="title">Code</h1>
           <div class="content">
             <i class="fa fa-code fa-3x"></i>
           </div>
         </li>
-        <li class="action-item col-6" @click="handleJump('/note')">
+        <li class="action-item col-4" @click="handleJump('/note')">
           <h1 class="title">Note</h1>
           <div class="content">
             <i class="fa fa-edit fa-3x"></i>
+          </div>
+        </li>
+        <li class="action-item col-4" @click="handleJump('/share')">
+          <h1 class="title">Share</h1>
+          <div class="content">
+            <i class="fa fa-share-alt-square fa-3x"></i>
           </div>
         </li>
       </ul>

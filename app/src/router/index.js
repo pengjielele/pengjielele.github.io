@@ -12,16 +12,14 @@ import CodeIndex from "@/views/code/Index.vue";
 import CodeJavascript from "@/views/code/Javascript.vue";
 
 import NoteIndex from "@/views/note/Index.vue";
+import ShareIndex from "@/views/share/Index.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
-
 import CategoryList from "@/views/admin/category/Index.vue";
-
 import ArticleIndex from "@/views/admin/article/Index.vue";
 import ArticleList from "@/views/admin/article/List.vue";
 import ArticleAdd from "@/views/admin/article/Update.vue";
-
 import TagList from "@/views/admin/tag/Index.vue";
 import ContactsList from "@/views/admin/contacts/Index.vue";
 import CardList from "@/views/admin/card/Index.vue";
@@ -83,6 +81,11 @@ const routes = [
     path: "/note",
     name: "noteIndex",
     component: NoteIndex
+  },
+  {
+    path: "/share",
+    name: "shareIndex",
+    component: ShareIndex
   },
   {
     path: "/admin",
