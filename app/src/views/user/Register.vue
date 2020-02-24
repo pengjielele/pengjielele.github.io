@@ -52,10 +52,7 @@ export default {
     submitForm() {
       const self = this;
       self.$refs["registerForm"].validate(valid => {
-        if (valid) {
-          console.log(valid);
-        } else {
-          console.log("error submit!!");
+        if (!valid) {
           return false;
         }
       });
