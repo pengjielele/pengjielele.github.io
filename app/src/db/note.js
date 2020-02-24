@@ -1286,16 +1286,6 @@ export const notes = [
     update_date: "2019-10-23T12:17:32.749Z"
   },
   {
-    _id: "5b9f113517e8391fae9295b3",
-    userid: "5028315",
-    title: "tiny editor",
-    content:
-      "data:text/html,&lt;body&nbsp;oninput=&quot;i.srcdoc=h.value+&#39;&lt;style&gt;&#39;+c.value+&#39;&lt;/style&gt;&lt;script&gt;&#39;+j.value+&#39;&lt;/script&gt;&#39;&quot;&gt;&lt;style&gt;textarea,iframe{width:100%;height:50%}body{margin:0}textarea{width:33.33%;font-size:18}&lt;/style&gt;&lt;textarea&nbsp;placeholder=HTML&nbsp;id=h&gt;&lt;/textarea&gt;&lt;textarea&nbsp;placeholder=CSS&nbsp;id=c&gt;&lt;/textarea&gt;&lt;textarea&nbsp;placeholder=JS&nbsp;id=j&gt;&lt;/textarea&gt;&lt;iframe&nbsp;id=i&gt;",
-    tags: "editor",
-    create_date: "2018-09-17T02:28:05.000Z",
-    update_date: "2019-10-23T12:17:32.749Z"
-  },
-  {
     _id: "5b9f08816e818d5046398f1e",
     userid: "5028315",
     title: "",

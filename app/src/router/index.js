@@ -13,6 +13,7 @@ import CodeJavascript from "@/views/code/Javascript.vue";
 
 import NoteIndex from "@/views/note/Index.vue";
 import ShareIndex from "@/views/share/Index.vue";
+import GitIndex from "@/views/git/Index.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
@@ -86,6 +87,11 @@ const routes = [
     path: "/share",
     name: "shareIndex",
     component: ShareIndex
+  },
+  {
+    path: "/git",
+    name: "gitIndex",
+    component: GitIndex
   },
   {
     path: "/admin",

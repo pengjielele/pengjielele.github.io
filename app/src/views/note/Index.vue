@@ -18,6 +18,9 @@ import { notes } from "@/db/note.js";
 
 export default {
   name: "note",
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   computed: {
     list() {
       return this.notes.filter(item => {
@@ -58,7 +61,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .page-note {
     width: 100%;
   }

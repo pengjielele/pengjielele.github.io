@@ -1,11 +1,10 @@
 <template>
-  <div class="page page-share">
+  <div class="page page-git">
     <ul class="list">
-      <li class="item" v-for="item in shares" v-bind:key="item.id">
+      <li class="item" v-for="item in list" v-bind:key="item.id">
         <h1 class="title">{{ item.title }}</h1>
         <div class="content">
-          <div v-html="item.content"></div>
-          <a class="link" :href="item.url" target="_blank">提取</a>
+          <codemirror v-model="item.content"></codemirror>
         </div>
       </li>
     </ul>
@@ -13,52 +12,48 @@
 </template>
 
 <script>
-import { shares } from "@/db/share.js";
+import { list } from "@/db/git.js";
 
 export default {
-  name: "share",
+  name: "git",
   mounted() {
     window.scrollTo(0, 0);
   },
   data() {
     return {
-      shares: shares
+      list: list
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.page-share {
+.page-git {
   width: 800px;
-  margin: 50px auto 20px;
+  margin: 20px auto;
   .list {
     .item {
       margin-bottom: 20px;
       overflow: wrap;
-      box-shadow: 1px 1px 5px #ddd;
-      padding: 15px;
       border-radius: 5px;
-      .content {
-        line-height: 30px;
-        display: flex;
-        word-break: break-all;
-        .link {
-          display: inline-block;
-          margin-left: 10px;
-          text-decoration: none;
-        }
-      }
       .title {
         font-size: 16px;
         margin-bottom: 5px;
+      }
+      .content {
+        border: 1px solid #ddd;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 0 10px;
+        .CodeMirror {
+        }
       }
     }
   }
 }
 
 @media screen and (max-width: 768px) {
-  .page-share {
+  .page-git {
     width: 100%;
     .list .item {
       .content {
