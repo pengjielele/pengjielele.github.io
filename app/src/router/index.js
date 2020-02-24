@@ -15,7 +15,11 @@ import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
 
 import CategoryList from "@/views/admin/category/Index.vue";
-import ArticleList from "@/views/admin/articles/Index.vue";
+
+import ArticleIndex from "@/views/admin/article/Index.vue";
+import ArticleList from "@/views/admin/article/List.vue";
+import ArticleAdd from "@/views/admin/article/Update.vue";
+
 import TagList from "@/views/admin/tags/Index.vue";
 import ContactsList from "@/views/admin/contacts/Index.vue";
 import CardList from "@/views/admin/card/Index.vue";
@@ -97,10 +101,30 @@ const routes = [
         meta: { title: "类别列表" }
       },
       {
-        path: "articles",
-        name: "articles",
-        component: ArticleList,
-        meta: { title: "文章列表" }
+        path: "article",
+        name: "article",
+        component: ArticleIndex,
+        meta: { title: "文章列表" },
+        children: [
+          {
+            path: "list",
+            name: "list",
+            component: ArticleList,
+            meta: { title: "文章列表" }
+          },
+          {
+            path: "add",
+            name: "add",
+            component: ArticleAdd,
+            meta: { title: "新建文章" }
+          },
+          {
+            path: "edit/:id",
+            name: "edit",
+            component: ArticleAdd,
+            meta: { title: "编辑文章" }
+          }
+        ]
       },
       {
         path: "contacts",

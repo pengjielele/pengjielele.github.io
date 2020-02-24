@@ -76,7 +76,7 @@
                 <span>文章管理</span>
               </template>
               <el-menu-item index="3-1"
-                ><router-link class="menu-link" to="/admin/articles"
+                ><router-link class="menu-link" to="/admin/article/list"
                   >文章列表</router-link
                 ></el-menu-item
               >

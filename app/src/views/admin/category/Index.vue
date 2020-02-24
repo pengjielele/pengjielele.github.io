@@ -2,6 +2,11 @@
   <div class="page page-category">
     <div class="page-header">
       <h1 class="title">{{ $route.meta.title }}</h1>
+      <div class="">
+        <el-button type="primary" size="medium" @click="handleAdd"
+          >新增类别</el-button
+        >
+      </div>
     </div>
 
     <div class="page-body">
@@ -20,48 +25,93 @@
                 @click="handleEdit(scope.$index, scope.row)"
                 >修改</el-button
               >
+              <el-button
+                type="warning"
+                plain
+                size="mini"
+                class="btn-table"
+                @click="handleDelete(scope.row.name)"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
       </div>
     </div>
+
+    <el-dialog
+      :title="title"
+      width="450px"
+      top="30vh"
+      class="dialog-category"
+      :visible.sync="showForm"
+    >
+      <el-form :model="cateForm" ref="cateForm">
+        <el-form-item
+          label="类别名称"
+          label-width="180"
+          prop="name"
+          :rules="[{ required: true, message: '请填写类别名称' }]"
+        >
+          <el-input
+            v-model="cateForm.name"
+            placehoder="类别名称"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <div class="form-group">
+          <el-button type="primary" @click="handleConfirm">确认</el-button>
+        </div>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { categories } from "@/db/category.js";
+
 export default {
   created() {},
+  computed: {
+    title() {
+      return this.cateForm.id ? "编辑类别" : "新增类别";
+    }
+  },
   methods: {
-    handleEdit() {}
+    handleAdd() {
+      this.showForm = true;
+    },
+    handleDelete(name) {
+      this.$confirm(`确认删除类别'${name}'?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {});
+    },
+    handleEdit() {
+      this.cateForm = categories[0];
+      this.showForm = true;
+    },
+    handleConfirm() {
+      this.$refs["cateForm"].validate(valid => {
+        if (!valid) {
+          return false;
+        }
+        this.$message({
+          type: "success",
+          message: "操作成功",
+          center: true
+        });
+      });
+    }
   },
   data() {
     return {
-      list: [
-        {
-          id: 113,
-          companyId: 1,
-          name: "发送方式",
-          level: 1,
-          createdAt: "2020-02-21 15:19:17",
-          updatedAt: "2020-02-21 15:19:17"
-        },
-        {
-          id: 112,
-          companyId: 1,
-          name: "国家",
-          level: 1,
-          createdAt: "2020-02-20 17:54:19",
-          updatedAt: "2020-02-20 17:54:19"
-        },
-        {
-          id: 111,
-          companyId: 1,
-          name: "基本信息",
-          level: 1,
-          createdAt: "2020-02-20 17:54:14",
-          updatedAt: "2020-02-20 17:54:14"
-        }
-      ]
+      list: categories,
+      cateForm: {
+        name: ""
+      },
+      showForm: false
     };
   }
 };

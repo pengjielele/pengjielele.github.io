@@ -37,6 +37,12 @@
             <el-button class="btn-search" type="primary" @click="handleSearch"
               ><i class="el-icon-search"></i>查询</el-button
             >
+            <el-button
+              type="success"
+              icon="el-icon-document-add"
+              @click="handleAdd"
+              >新建</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
@@ -76,10 +82,16 @@
                   type="primary"
                   plain
                   size="medium"
-                  @click="handleEdit(scope.row)"
+                  @click="handleEdit(scope.row.id)"
                   >编辑</el-button
                 >
-                <el-button type="warning" plain size="medium">删除</el-button>
+                <el-button
+                  type="warning"
+                  plain
+                  size="medium"
+                  @click="handleDelete(scope.row.title)"
+                  >删除</el-button
+                >
               </div>
             </template>
           </el-table-column>
@@ -101,12 +113,25 @@
 </template>
 
 <script>
+import { articles } from "@/db/article.js";
 import { toArray } from "@/utils/index.js";
 
 export default {
   created() {},
   methods: {
-    handleEdit() {},
+    handleAdd() {
+      this.$router.push("/admin/article/add");
+    },
+    handleDelete(title) {
+      this.$confirm(`确认删除文章${title}?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {});
+    },
+    handleEdit(id) {
+      this.$router.push(`/admin/article/edit/${id}`);
+    },
     handleChange() {
       this.searchData.page = 1;
     },
@@ -138,125 +163,7 @@ export default {
         page: 1,
         size: 5
       },
-      list: [
-        {
-          id: 1,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "0",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 2,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "1",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 3,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "0",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 4,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "0",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 5,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "1",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 6,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "0",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 7,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "0",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 8,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "1",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        },
-        {
-          id: 9,
-          title: "javascript简介",
-          desc: "",
-          content: "",
-          author: "Mr.L",
-          tags: "js",
-          category: "前端技术",
-          status: "0",
-          create_time: "2019.10.11",
-          publish_time: "2019.10.12",
-          last_update_time: "2020.01.10"
-        }
-      ],
+      list: articles,
       showPaging: true,
       total: 20,
       statuses: statuses,
