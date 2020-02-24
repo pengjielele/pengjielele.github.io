@@ -18,23 +18,6 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="一级类别">
-            <el-select
-              v-model="searchData.cateId"
-              placeholder="一级类别"
-              @change="handleChange"
-            >
-              <el-option label="全部" value=""></el-option>
-              <el-option
-                v-for="cate in categories"
-                :key="cate.id"
-                :label="cate.name"
-                :value="cate.id"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-
           <el-form-item label="标签名称">
             <el-input
               v-model="searchData.tagName"
@@ -56,11 +39,7 @@
           <el-table-column fixed prop="id" label="标签ID"> </el-table-column>
           <el-table-column prop="propertyName" label="标签属性">
           </el-table-column>
-          <el-table-column prop="categoryName" label="一级类别">
-          </el-table-column>
           <el-table-column prop="name" label="标签名称"> </el-table-column>
-          <el-table-column prop="ruleName" label="标签值规则">
-          </el-table-column>
           <el-table-column prop="operate" label="创建人"> </el-table-column>
           <el-table-column prop="createTime" label="创建时间">
           </el-table-column>
@@ -85,7 +64,7 @@
         layout="prev, pager, next"
         :hide-on-single-page="showPaging"
         :total="total"
-        :page-size="searchData.pageSize"
+        :page-size="searchData.size"
         @current-change="handleCurrentChange"
       >
       </el-pagination>
@@ -94,14 +73,16 @@
 </template>
 
 <script>
+import { tags } from "@/db/tag.js";
+
 export default {
   created: function() {},
   methods: {
-    handleLook(index, row) {
-      this.$router.push({
-        path: `/tag/model/${row.id}/`,
-        query: { property: row.property, name: encodeURIComponent(row.name) }
-      });
+    handleLook() {
+      // this.$router.push({
+      //   path: `/tag/model/${row.id}/`,
+      //   query: { property: row.property, name: encodeURIComponent(row.name) }
+      // });
     },
     handleChange() {
       this.searchData.page = 1;
@@ -140,68 +121,10 @@ export default {
         property: "",
         cateId: "",
         page: 1,
-        pageSize: 15
+        size: 15
       },
-      tags: [
-        {
-          id: 10254,
-          categoryId: 111,
-          enName: "sex",
-          name: "性别",
-          property: 1,
-          rule: 1,
-          text: null,
-          operate: "admin",
-          categoryName: "基本信息",
-          createdAt: "2020-02-20 17:54:40",
-          updatedAt: "2020-02-20 17:54:40"
-        },
-        {
-          id: 10255,
-          categoryId: 112,
-          enName: "country",
-          name: "国家",
-          property: 1,
-          rule: 2,
-          text: null,
-          operate: "admin",
-          categoryName: "国家",
-          createdAt: "2020-02-20 17:55:26",
-          updatedAt: "2020-02-20 17:55:26"
-        },
-        {
-          id: 10256,
-          categoryId: 112,
-          enName: "gonecountry",
-          name: "去过的国家",
-          property: 2,
-          rule: 2,
-          text: "灌灌灌灌",
-          operate: "admin",
-          categoryName: "国家",
-          createdAt: "2020-02-20 17:57:13",
-          updatedAt: "2020-02-20 17:57:13"
-        }
-      ],
+      tags: tags,
       showPaging: true,
-      categories: [
-        {
-          id: 112,
-          companyId: 1,
-          name: "国家",
-          level: 1,
-          createdAt: "2020-02-20 17:54:19",
-          updatedAt: "2020-02-20 17:54:19"
-        },
-        {
-          id: 111,
-          companyId: 1,
-          name: "基本信息",
-          level: 1,
-          createdAt: "2020-02-20 17:54:14",
-          updatedAt: "2020-02-20 17:54:14"
-        }
-      ],
       total: 0
     };
   }

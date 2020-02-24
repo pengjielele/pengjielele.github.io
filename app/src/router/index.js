@@ -20,7 +20,7 @@ import ArticleIndex from "@/views/admin/article/Index.vue";
 import ArticleList from "@/views/admin/article/List.vue";
 import ArticleAdd from "@/views/admin/article/Update.vue";
 
-import TagList from "@/views/admin/tags/Index.vue";
+import TagList from "@/views/admin/tag/Index.vue";
 import ContactsList from "@/views/admin/contacts/Index.vue";
 import CardList from "@/views/admin/card/Index.vue";
 
