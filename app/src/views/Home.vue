@@ -48,6 +48,12 @@
             <i class="fa fa-sun-o fa-3x"></i>
           </div>
         </li>
+        <li class="action-item col-4" @click="handleJump('/color')">
+          <h1 class="title">Color</h1>
+          <div class="content">
+            <i class="fa fa-th fa-3x"></i>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

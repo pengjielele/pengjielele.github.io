@@ -101,6 +101,7 @@ export default {
       padding: 10px 15px;
       margin-bottom: -1px;
       margin-left: -1px;
+      cursor: pointer;
       &.active {
         background: #ffa631;
         border: 1px solid #ffa631;
