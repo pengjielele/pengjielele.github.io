@@ -303,3 +303,16 @@ ul li {
     }
   }
 }
+
+.page-card {
+  .page-header {
+    margin: 0  0 10px;
+  }
+  .panel {
+    margin-bottom: 20px;
+    .title {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  }
+}

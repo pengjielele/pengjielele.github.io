@@ -31,7 +31,7 @@ export default {
 <style lang="scss" scoped>
 .page-share {
   width: 800px;
-  margin: 50px auto 20px;
+  margin: 20px auto;
   .list {
     .item {
       margin-bottom: 20px;

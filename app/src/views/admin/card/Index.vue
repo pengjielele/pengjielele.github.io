@@ -1,9 +1,5 @@
 <template>
   <div class="page page-card">
-    <div class="page-header">
-      <h1 class="title">{{ $route.meta.title }}</h1>
-    </div>
-
     <div class="page-body">
       <div class="panel">
         <h1 class="title">一行两列</h1>
@@ -45,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="panel">
+      <div class="panel" style="margin-bottom: 50px;">
         <h1 class="title">一行四列</h1>
         <div class="action-list row">
           <div class="action-item col-3">
@@ -77,15 +73,3 @@
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.page-card {
-  .panel {
-    margin-bottom: 20px;
-    .title {
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-  }
-}
-</style>
