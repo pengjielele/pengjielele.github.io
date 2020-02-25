@@ -15,6 +15,7 @@ import FrontGit from "@/views/front/Git.vue";
 import FrontNote from "@/views/front/Note.vue";
 import FrontShare from "@/views/front/Share.vue";
 import FrontIcon from "@/views/front/Icon.vue";
+import FrontColor from "@/views/front/Color.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
@@ -98,6 +99,11 @@ const routes = [
     path: "/icon",
     name: "iconIndex",
     component: FrontIcon
+  },
+  {
+    path: "/color",
+    name: "colorIndex",
+    component: FrontColor
   },
   {
     path: "/admin",

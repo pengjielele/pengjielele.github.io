@@ -23,7 +23,7 @@
             v-bind:key="index"
           >
             <i :class="icon.class" aria-hidden="true"></i>
-            <span>{{ icon.name }}</span>
+            <span class="name">{{ icon.name }}</span>
             <div class="cover">
               <button class="btn-copy" @click="handleCopy">copy</button>
             </div>
@@ -121,33 +121,18 @@ export default {
       &:nth-child(5n) {
         border-right: 0;
       }
-      .cover {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        bottom: 0;
-        background: #333;
-        background: rgba(0, 0, 0, 0.3);
-        display: none;
-        text-align: right;
-      }
-      .btn-copy {
-        border: none;
-        outline: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 14px;
-        color: #fff;
-        background: #000;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-      }
       &:hover {
         .cover {
           width: 100%;
           display: block;
+        }
+        i {
+          transform: scale(1.3);
+        }
+        .name {
+          transform: scale(1.2);
+          color: #000;
+          font-weight: bold;
         }
       }
     }
@@ -164,6 +149,14 @@ export default {
         }
         &:nth-child(2n) {
           border-right: 0;
+        }
+        .cover {
+          display: block;
+          width: 30px;
+          height: 30px;
+          left: unset;
+          right: 0;
+          background: unset;
         }
       }
     }
