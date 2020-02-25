@@ -3,8 +3,8 @@
     <div class="page-title"><strong>欢迎你！</strong>请选择</div>
     <div class="page-body">
       <div class="action-list row">
-        <div class="action-item col-3" @click="jumpToPage('/admin/users/')">
-          <h1 class="title">用户管理</h1>
+        <div class="action-item col-3" @click="jumpToPage('/admin/category/')">
+          <h1 class="title">类别管理</h1>
           <div class="content">
             <i class="fa fa-user-circle fa-5x"></i>
           </div>
@@ -15,7 +15,10 @@
             <i class="fa fa-tags fa-5x"></i>
           </div>
         </div>
-        <div class="action-item col-3" @click="jumpToPage('/admin/articles/')">
+        <div
+          class="action-item col-3"
+          @click="jumpToPage('/admin/article/list')"
+        >
           <h1 class="title">文章管理</h1>
           <div class="content">
             <i class="fa fa-address-card fa-5x"></i>

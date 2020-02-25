@@ -1,5 +1,10 @@
 <template>
   <div class="page page-note">
+    <div class="navs">
+      <router-link to="/">Home</router-link>
+      <i class="fa fa-chevron-right"></i>
+      <a>Note</a>
+    </div>
     <ul class="list">
       <li class="item" v-for="item in list" v-bind:key="item._id">
         <div class="content">

@@ -7,6 +7,7 @@ import "@/assets/font-awesome-4.7.0/scss/font-awesome.scss";
 
 import "@/plugins/element-ui.js";
 import "@/plugins/vue-codemirror.js";
+import "@/plugins/vue-clipboard2.js";
 
 Vue.config.productionTip = false;
 

@@ -14,7 +14,7 @@
             <i class="fa fa-paper-plane fa-3x"></i>
           </div>
         </li>
-        <li class="action-item col-4" @click="handleJump('/admin')">
+        <li class="action-item col-4" @click="handleJump('/admin/welcome')">
           <h1 class="title">Admin</h1>
           <div class="content">
             <i class="fa fa-bars fa-3x"></i>
@@ -38,6 +38,14 @@
           <h1 class="title">Share</h1>
           <div class="content">
             <i class="fa fa-share-alt-square fa-3x"></i>
+          </div>
+        </li>
+      </ul>
+      <ul class="action-list row">
+        <li class="action-item col-4" @click="handleJump('/icon')">
+          <h1 class="title">Icon</h1>
+          <div class="content">
+            <i class="fa fa-sun-o fa-3x"></i>
           </div>
         </li>
       </ul>
@@ -73,6 +81,9 @@ export default {
         font-size: 24px;
       }
     }
+  }
+  .fa {
+    color: #03a9f4;
   }
 }
 

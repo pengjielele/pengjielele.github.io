@@ -1,5 +1,10 @@
 <template>
   <div class="page page-git">
+    <div class="navs">
+      <router-link to="/">Home</router-link>
+      <i class="fa fa-chevron-right"></i>
+      <a>Git</a>
+    </div>
     <ul class="list">
       <li class="item" v-for="item in list" v-bind:key="item.id">
         <h1 class="title">{{ item.title }}</h1>

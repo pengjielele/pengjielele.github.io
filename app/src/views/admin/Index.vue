@@ -46,6 +46,13 @@
             @open="openSubMenu"
             ref="menu"
           >
+            <el-menu-item index="0">
+              <i class="el-icon-s-home"></i>
+              <router-link class="menu-link" to="/"
+                >首页</router-link
+              ></el-menu-item
+            >
+
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-s-order"></i>
@@ -72,7 +79,7 @@
 
             <el-submenu index="3">
               <template slot="title">
-                <i class="el-icon-menu"></i>
+                <i class="el-icon-tickets"></i>
                 <span>文章管理</span>
               </template>
               <el-menu-item index="3-1"
@@ -84,7 +91,7 @@
 
             <el-submenu index="4">
               <template slot="title">
-                <i class="el-icon-menu"></i>
+                <i class="el-icon-notebook-1"></i>
                 <span>通迅录</span>
               </template>
               <el-menu-item index="3-1"
@@ -96,7 +103,7 @@
 
             <el-submenu index="5">
               <template slot="title">
-                <i class="el-icon-menu"></i>
+                <i class="el-icon-postcard"></i>
                 <span>卡片管理</span>
               </template>
               <el-menu-item index="3-1"

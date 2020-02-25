@@ -1,0 +1,175 @@
+<template>
+  <div class="page page-icons">
+    <div class="header">
+      <h1>Font Awesome 4.7图标库</h1>
+      <ul class="navigation">
+        <li
+          class="item"
+          v-for="item in list"
+          v-bind:key="item.id"
+          @click="goAnchor(item.id)"
+        >
+          {{ item.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="list">
+      <div class="item" v-for="item in list" v-bind:key="item.id">
+        <h2 class="title" :id="item.id">{{ item.name }}</h2>
+        <ul class="icons">
+          <li
+            class="icon"
+            v-for="(icon, index) in item.icons"
+            v-bind:key="index"
+          >
+            <i :class="icon.class" aria-hidden="true"></i>
+            <span>{{ icon.name }}</span>
+            <div class="cover">
+              <button class="btn-copy" @click="handleCopy">copy</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { list } from "@/db/icon.js";
+
+export default {
+  name: "icons",
+  mounted() {
+    window.scrollTo(0, 0);
+  },
+  methods: {
+    goAnchor: function(selector) {
+      var anchor = this.$el.querySelector("#" + selector);
+      // document.body.scrollTop = anchor.offsetTop; // not work
+      // window.scrollTo(0, anchor.offsetTop);       // work
+      anchor.scrollIntoView({ block: "start", behavior: "smooth" });
+    },
+    handleCopy: function(event) {
+      var html = event.target.parentNode.childNodes[0].outerHTML;
+      html = html.replace(/data-v.+?\s/gi, "");
+      console.log(html);
+      this.$copyText(html).then(
+        function(e) {
+          alert("Copied");
+          console.log(e);
+        },
+        function(e) {
+          alert("Can not copy");
+          console.log(e);
+        }
+      );
+    }
+  },
+  data() {
+    return {
+      list: list
+    };
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.page-icons {
+  width: 100%;
+  margin: 20px auto;
+  .header {
+    .navigation {
+      text-align: left;
+      margin-bottom: 20px;
+      li {
+        padding: 10px 5px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+        &:hover {
+          background: #ece9e9;
+        }
+      }
+    }
+  }
+  .list {
+    .item {
+      margin-bottom: 20px;
+      overflow: wrap;
+      .title {
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #ddd;
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex: 0 1 20%;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: -1px;
+      margin-right: -1px;
+      i {
+        margin-bottom: 10px;
+      }
+      &:nth-child(5n) {
+        border-right: 0;
+      }
+      .cover {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        background: #333;
+        background: rgba(0, 0, 0, 0.3);
+        display: none;
+        text-align: right;
+      }
+      .btn-copy {
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #fff;
+        background: #000;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+      &:hover {
+        .cover {
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-icons {
+    .icons {
+      .icon {
+        flex: 0 1 50%;
+        &:nth-child(5n) {
+          border-right: 1px solid #ddd;
+        }
+        &:nth-child(2n) {
+          border-right: 0;
+        }
+      }
+    }
+  }
+}
+</style>

@@ -11,9 +11,10 @@ import UIInputTags from "@/views/ui/InputTags.vue";
 import CodeIndex from "@/views/code/Index.vue";
 import CodeJavascript from "@/views/code/Javascript.vue";
 
-import NoteIndex from "@/views/note/Index.vue";
-import ShareIndex from "@/views/share/Index.vue";
-import GitIndex from "@/views/git/Index.vue";
+import FrontGit from "@/views/front/Git.vue";
+import FrontNote from "@/views/front/Note.vue";
+import FrontShare from "@/views/front/Share.vue";
+import FrontIcon from "@/views/front/Icon.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
@@ -81,17 +82,22 @@ const routes = [
   {
     path: "/note",
     name: "noteIndex",
-    component: NoteIndex
+    component: FrontNote
   },
   {
     path: "/share",
     name: "shareIndex",
-    component: ShareIndex
+    component: FrontShare
   },
   {
     path: "/git",
     name: "gitIndex",
-    component: GitIndex
+    component: FrontGit
+  },
+  {
+    path: "/icon",
+    name: "iconIndex",
+    component: FrontIcon
   },
   {
     path: "/admin",
