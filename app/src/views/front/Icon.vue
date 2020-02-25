@@ -50,7 +50,7 @@ export default {
       anchor.scrollIntoView({ block: "start", behavior: "smooth" });
     },
     handleCopy: function(event) {
-      var html = event.target.parentNode.childNodes[0].outerHTML;
+      var html = event.target.parentNode.parentNode.childNodes[0].outerHTML;
       html = html.replace(/data-v.+?\s/gi, "");
       this.$copyText(html).then(
         function() {
