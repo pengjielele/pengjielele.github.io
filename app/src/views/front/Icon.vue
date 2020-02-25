@@ -52,15 +52,12 @@ export default {
     handleCopy: function(event) {
       var html = event.target.parentNode.childNodes[0].outerHTML;
       html = html.replace(/data-v.+?\s/gi, "");
-      console.log(html);
       this.$copyText(html).then(
-        function(e) {
+        function() {
           alert("Copied");
-          console.log(e);
         },
-        function(e) {
+        function() {
           alert("Can not copy");
-          console.log(e);
         }
       );
     }
