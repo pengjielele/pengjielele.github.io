@@ -31,14 +31,19 @@
         </ul>
       </div>
     </div>
+    <back-top></back-top>
   </div>
 </template>
 
 <script>
+import BackTop from "@/components/BackTop.vue";
 import { list } from "@/db/icon.js";
 
 export default {
   name: "icons",
+  components: {
+    BackTop
+  },
   mounted() {
     window.scrollTo(0, 0);
   },

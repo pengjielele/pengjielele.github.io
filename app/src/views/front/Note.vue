@@ -13,16 +13,21 @@
         <div class="date">{{ item.date }}</div>
       </li>
     </ul>
+    <back-top></back-top>
   </div>
 </template>
 
 <script>
 import dayjs from "dayjs";
+import BackTop from "@/components/BackTop.vue";
 import { HtmlUtil } from "@/utils/html.js";
 import { notes } from "@/db/note.js";
 
 export default {
   name: "note",
+  components: {
+    BackTop
+  },
   mounted() {
     window.scrollTo(0, 0);
   },

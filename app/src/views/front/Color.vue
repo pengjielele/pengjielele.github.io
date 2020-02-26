@@ -42,14 +42,19 @@
         </li>
       </ul>
     </div>
+    <back-top></back-top>
   </div>
 </template>
 
 <script>
+import BackTop from "@/components/BackTop.vue";
 import { china_colors, japan_colors } from "@/db/color.js";
 
 export default {
   name: "color",
+  components: {
+    BackTop
+  },
   mounted() {
     window.scrollTo(0, 0);
   },
@@ -97,6 +102,7 @@ export default {
     display: flex;
     border-bottom: 3px solid #ffa631;
     margin-bottom: 10px;
+    padding-left: 1px;
     li {
       padding: 10px 15px;
       margin-bottom: -1px;
