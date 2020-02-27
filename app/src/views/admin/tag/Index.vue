@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { tags } from "@/db/tag.js";
+import { tags } from "@/db/admin/tag.js";
 
 export default {
   created: function() {},

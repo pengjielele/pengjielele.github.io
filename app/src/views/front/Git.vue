@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { list } from "@/db/git.js";
+import { list } from "@/db/front/git.js";
 
 export default {
   name: "git",

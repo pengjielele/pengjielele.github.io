@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import { categories } from "@/db/category.js";
-import { articles } from "@/db/article.js";
+import { categories } from "@/db/admin/category.js";
+import { articles } from "@/db/admin/article.js";
 
 export default {
   created() {

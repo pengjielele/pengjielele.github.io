@@ -21,7 +21,7 @@
 import dayjs from "dayjs";
 import BackTop from "@/components/BackTop.vue";
 import { HtmlUtil } from "@/utils/html.js";
-import { notes } from "@/db/note.js";
+import { notes } from "@/db/front/note.js";
 
 export default {
   name: "note",

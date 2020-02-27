@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { articles } from "@/db/article.js";
+import { articles } from "@/db/admin/article.js";
 import { toArray } from "@/utils/index.js";
 
 export default {

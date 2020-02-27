@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { shares } from "@/db/share.js";
+import { shares } from "@/db/front/share.js";
 
 export default {
   name: "share",

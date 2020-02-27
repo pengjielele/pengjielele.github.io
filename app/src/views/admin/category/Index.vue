@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { categories } from "@/db/category.js";
+import { categories } from "@/db/admin/category.js";
 
 export default {
   created() {},

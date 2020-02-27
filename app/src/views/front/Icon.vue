@@ -37,7 +37,7 @@
 
 <script>
 import BackTop from "@/components/BackTop.vue";
-import { list } from "@/db/icon.js";
+import { list } from "@/db/front/icon.js";
 
 export default {
   name: "icons",

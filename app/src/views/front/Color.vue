@@ -48,7 +48,7 @@
 
 <script>
 import BackTop from "@/components/BackTop.vue";
-import { china_colors, japan_colors } from "@/db/color.js";
+import { china_colors, japan_colors } from "@/db/front/color.js";
 
 export default {
   name: "color",
