@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>css flex</title>
+    <style>
+      * {margin:0;padding:0;box-sizing: border-box;}
+      .container { margin: 20px;}
+      .container pre {margin-bottom: 5px;}
+      .container .row { display: flex; margin-bottom: 20px; }
+      .box { border: 1px solid blue;}
+      .box0 {  flex-grow: 0; }
+      .box1 {  flex-grow: 0.5; }
+      .box2 { flex-grow: 1 }
+      .box3 { flex-grow: 1 }
+      .box4 { flex-grow: 2 }
+
+      .card { flex-basis: 120px; border:1px solid #ddd;}
+      .card1,.card3 { flex-shrink: 1 }
+      .card2,.card4 { flex-shrink: 3 }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+<pre>
+.box0{ flex-grow: 0 }
+</pre>
+      <div class="row">
+        <div class="box box0">
+          <span class="title">.box0</span>
+        </div>
+      </div>
+
+<pre>
+.box1{ flex-grow: 0.5 }
+</pre>
+      <div class="row">
+        <div class="box box1">
+          <span class="title">.box1</span>
+        </div>
+      </div>
+
+<pre>
+.box2{ flex-grow: 1 }
+</pre>
+      <div class="row">
+        <div class="box box2">
+          <span class="title">.box2</span>
+        </div>
+      </div>
+
+<pre>
+.box3{ flex-grow: 1 }
+.box4{ flex-grow: 2 }
+</pre>
+      <div class="row">
+        <div class="box box3">
+          <span class="title">.box3</span>
+        </div>
+        <div class="box box4">
+          <span class="title">.box4</span>
+        </div>
+      </div>
+
+<pre>
+.card1,.card3 { flex-shrink: 1 }
+.card2,.card4 { flex-shrink: 3 }
+</pre>
+      <div class="row">
+        <div class="card card1">
+          <span class="title">.card1</span>
+        </div>
+        <div class="card card2">
+          <span class="title">.card2</span>
+        </div>
+        <div class="card card3">
+          <span class="title">.card3</span>
+        </div>
+        <div class="card card4">
+          <span class="title">.card4</span>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
