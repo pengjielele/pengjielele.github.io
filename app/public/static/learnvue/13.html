@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My blog v1.1</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+  <style>
+    #app{ width: 1000px; margin: 30px auto; }
+    .site-header,.site-footer,.site-body{ border:1px solid #ddd; }
+    .site-header,.site-footer,.site-sidebar,.site-main{ padding:20px; }
+    .site-body{ border:1px solid #ddd;margin:10px 0; }
+    .site-body .row,.site-body .site-sidebar{ height: 100%; }
+    .site-body .site-sidebar{ border-left:1px solid #ddd; }
+
+    .blog-list .blog-post{ border-bottom: 1px solid #ddd; padding:10px 0; }
+    .blog-list .blog-post:last-child{ border-bottom: none; }
+    .blog-list .blog-post .title{ color:#333; font-size:20px; }
+    .blog-list .blog-post .date{ color:#999;font-size:14px; }
+
+    .navigation a{ margin-right: 10px; }
+  </style>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+	<div id="app">
+    <site-header></site-header>
+    <site-body></site-body>
+    <site-footer></site-footer>
+  </div>
+</body>
+<script>
+  var BlogPost = {
+    props: ['post'],
+    data: function () {
+      return {
+        name: 'blog-post'
+      }
+    },
+    template: `<article class="blog-post">
+      <h4 class="title" v-text="post.title">loading...</h4>
+      <div class="date">loading date...</div>
+    </article>`
+  }
+
+  var BlogList = {
+    components:{
+      'blog-post': BlogPost
+    },
+    data: function () {
+      return {
+        name: 'blog-list',
+        posts: [
+          { id: 1, title: 'learn vue', date: '2019-08-06' },
+          { id: 2, title: 'learn vue router', date: '2019-08-07' },
+          { id: 3, title: 'learn vuex', date: '2019-08-08' },
+          { id: 4, title: 'learn nuxt.js', date: '2019-08-09' },
+          { id: 5, title: 'learn vue cli', date: '2019-08-10' },
+          { id: 6, title: 'learn bootstrap', date: '2019-08-11' },
+          { id: 7, title: 'learn babel', date: '2019-08-12' },
+          { id: 8, title: 'learn typescript', date: '2019-08-13' },
+          { id: 9, title: 'learn flux', date: '2019-08-14' },
+          { id: 10, title: 'learn webpack', date: '2019-08-15' },
+        ]
+      }
+    },
+    template: `
+      <div class="blog-list">
+        <blog-post v-for="post in posts" v-bind:post="post"></blog-post>
+      </div>
+    `
+  }
+
+  var Navigation = {
+    template: `
+      <div class="navigation">
+        <router-link to="/">Home</router-link>
+        <router-link to="/blog">Blog</router-link>
+        <router-link to="/about">About</router-link>
+      </div>
+    `
+  }
+
+  var HomePage = {
+    template: '<div>home page</div>'
+  }
+
+  var BlogPage = {
+    components:{
+      'blog-list': BlogList
+    },
+    template: '<div><blog-list></blog-list></div>'
+  }
+
+  var AboutPage = {
+    template: '<div>about page</div>'
+  }
+
+  Vue.component('site-header', {
+    components:{
+      'navigation': Navigation
+    },
+    data: function () {
+      return {
+        name: 'header'
+      }
+    },
+    template: `<header class="site-header">
+      <navigation></navigation>
+    </header>`
+  });
+
+  Vue.component('site-footer', {
+    components:{
+      'navigation': Navigation
+    },
+    data: function () {
+      return {
+        name: 'footer'
+      }
+    },
+    template: '<footer class="site-footer"><navigation></navigation></footer>'
+  });
+
+  Vue.component('site-body', {
+    data: function () {
+      return {
+        name: 'site-body'
+      }
+    },
+    template: `
+      <div class="site-body">
+        <div class="row">
+          <div class="col-8">
+            <site-main></site-main>
+          </div>
+          <div class="col-4">
+            <site-sidebar></site-sidebar>
+          </div>
+        </div>
+      </div>
+    `
+  });
+
+  Vue.component('site-main', {
+    data: function () {
+      return {
+        name: 'main'
+      }
+    },
+    template: '<main class="site-main"><router-view></router-view></main>'
+  });
+
+  Vue.component('site-sidebar', {
+    data: function () {
+      return {
+        name: 'sidebar'
+      }
+    },
+    template: '<aside class="site-sidebar">{{ name }}</aside>'
+  });
+
+  const router = new VueRouter({
+    mode: 'history',
+    routes: [
+      { path: '/', component: HomePage },
+      { path: '/blog', component: BlogPage },
+      { path: '/about', component: AboutPage }
+    ]
+  })
+
+  var app = new Vue({
+    router,
+    data: {
+      message: 'Hello World!'
+    }
+  }).$mount('#app')
+</script>
+</html>

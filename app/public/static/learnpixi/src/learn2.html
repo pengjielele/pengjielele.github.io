@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>头部旋转</title>
+    <style>
+        *{ margin:0;padding:0; }
+        html,body{ height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id='root'>
+    </div>
+  </body>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb });
+    document.body.appendChild(app.view);
+
+    var container = new PIXI.Container();
+    app.stage.addChild(container);
+
+    var head = PIXI.Sprite.fromImage('images/head.png');
+    head.anchor.set(0.5);
+    head.x = app.screen.width / 2;
+    head.y = app.screen.height / 2;
+    
+    head.interactive = true;
+    head.buttonMode = true;
+
+    head
+        .on('touchstart', onDragStart)
+        .on('touchend', onDragEnd)
+        .on('touchmove', onDragMove)
+        .on('pointerdown', function(){
+          // this.scale.x *= 1.25;
+          // this.scale.y *= 1.25;
+        });
+
+    container.addChild(head);
+
+    function rotateToPoint(mx, my, px, py){  
+      var self = this;
+      var dist_Y = my - py;
+      var dist_X = mx - px;
+      var angle = Math.atan2(dist_Y,dist_X);
+      //var degrees = angle * 180/ Math.PI;
+      return angle;
+    }
+
+    function onDragStart(event) {
+      // store a reference to the data
+      // the reason for this is because of multitouch
+      // we want to track the movement of this particular touch
+      this.data = event.data;
+      // this.alpha = 0.5;
+      this.dragging = true;
+    }
+
+    function onDragEnd() {
+      // this.alpha = 1;
+      this.dragging = false;
+      // set the interaction data to null
+      this.data = null;
+    }
+
+    function onDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+        head.rotation = rotateToPoint(newPosition.x, newPosition.y, head.position.x, head.position.y);
+      }
+    }
+  </script>
+</html>

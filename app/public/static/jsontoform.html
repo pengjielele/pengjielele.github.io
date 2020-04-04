@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JSON TO FORM</title>
+    <style>
+      html{ font-size:62.5%; }
+      body{ color:#666; font-size: 1.4rem; font-family: 'PingFang SC','San Francisco';}
+      a{ text-decoration: none; color:#333;}
+      a:hover{ color:#999;}
+      ul li {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      ul li ul {
+        margin-left: 35px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+      input {
+        width: 200px;
+        height: 25px;
+        padding: 0 5px;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+      }
+      .label{
+        display: inline-block;
+        min-width: 80px;
+      }
+      .label-array {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+  <script src="../assets/libs/lodash.min.js"></script>
+  <script>
+    const getMeta = (data, link) => {
+      var index = 0
+      var arr = link.split('.')
+      var get = function(data) {
+        if (index >= arr.length - 1) {
+          return data
+        }
+        if (data) {
+          index++
+        }
+        var objindex = arr[index].indexOf('[')
+        if (objindex > -1) {
+          var temp = arr[index].substring(0, objindex)
+          return get(data[temp]['items'])
+        } else {
+          return get(data[arr[index]])
+        }
+      }
+      return get(data)
+    }
+
+    var app = new Vue({
+      el: '#app',
+      methods: {
+        toInput: function(key, data, createElement, link) {
+          var meta = getMeta(this.$data.config, link)
+
+          var label = createElement('label', {
+            domProps: {
+              innerHTML: meta.label
+            },
+            class: 'label'
+          })
+          var input = createElement('input', {
+            domProps: {
+              value: data[key]
+            },
+            on: {
+              input: function(event) {
+                data[key] = event.target.value
+              }
+            }
+          })
+          return createElement('li', {}, [label, input])
+        },
+        toArray: function(key, data, createElement, link) {
+          var self = this
+          var meta = getMeta(this.$data.config, link)
+
+          var label = createElement('label', {
+            domProps: {
+              innerHTML: meta.label
+            },
+            class: 'label-array'
+          })
+
+          var inputs = data[key].map(function(item, index) {
+            var input = createElement('input', {
+              domProps: {
+                value: data[key][index]
+              },
+              on: {
+                input: function(event) {
+                  data[key][index] = event.target.value
+                }
+              }
+            })
+            var remove = createElement('button', {
+              domProps: {
+                innerHTML: 'delete',
+                dataIndex: index
+              },
+              class: 'delete',
+              on: {
+                click: function(event) {
+                  if (data[key].length >= 2) {
+                    data[key].splice(event.target.dataIndex, 1)
+                  }
+                }
+              }
+            })
+
+            return createElement('li', {}, [input, remove])
+          })
+
+          var add = createElement('button', {
+            domProps: {
+              innerHTML: 'add'
+            },
+            class: 'add',
+            on: {
+              click: function(event) {
+                data[key].push('')
+              }
+            }
+          })
+
+          var container = createElement('ul', {}, [
+            inputs,
+            createElement('li', {}, [add])
+          ])
+
+          return createElement('li', {}, [label, container])
+        },
+        toObject: function(data, createElement, list, link) {
+          var self = this
+          if (_.isObject(data)) {
+            var list = list || createElement('ul', {}, [])
+
+            for (var key in data) {
+              if (_.isString(data[key])) {
+                var newlink = link + '.' + key
+                var input = self.toInput(key, data, createElement, newlink)
+                list.children.push(input)
+              } else if (_.isArray(data[key])) {
+                if (data[key][0] && _.isObject(data[key][0])) {
+                  var meta = getMeta(this.$data.config, link + '.' + key)
+
+                  var label = createElement('label', {
+                    domProps: {
+                      innerHTML: meta.label
+                    },
+                    class: 'label-array'
+                  })
+
+                  var add = createElement('button', {
+                    domProps: {
+                      innerHTML: 'add',
+                      dataKey: key
+                    },
+                    class: 'add',
+                    on: {
+                      click: function(event) {
+                        var newkey = event.target.dataKey
+                        data[newkey].push(data[newkey][0])
+                      }
+                    }
+                  })
+
+                  var inputs = data[key].map(function(item, index) {
+                    var label = createElement('label', {
+                      domProps: {
+                        innerHTML: meta.label + (index + 1)
+                      },
+                      class: 'label-array'
+                    })
+
+                    var newlink = link + '.' + key + '[0]'
+                    var objects = self.toObject(
+                      data[key][index],
+                      createElement,
+                      createElement('ul', {}, []),
+                      newlink
+                    )
+                    var remove = createElement('button', {
+                      domProps: {
+                        innerHTML: 'delete',
+                        dataIndex: index,
+                        dataKey: key
+                      },
+                      class: 'delete',
+                      on: {
+                        click: function(event) {
+                          var newkey = event.target.dataKey
+                          if (data[newkey].length >= 2) {
+                            data[newkey].splice(event.target.dataIndex, 1)
+                          }
+                        }
+                      }
+                    })
+
+                    return createElement('ul', {}, [
+                      createElement('div', {}, [label, remove]),
+                      objects
+                    ])
+                  })
+
+                  list.children.push(
+                    createElement('li', {}, [
+                      createElement('div', {}, [label, add]),
+                      inputs
+                    ])
+                  )
+                } else {
+                  var newlink = link + '.' + key
+                  var arrays = self.toArray(key, data, createElement, newlink)
+                  list.children.push(arrays)
+                }
+              } else if (_.isObject(data[key])) {
+                var meta = getMeta(this.$data.config, link + '.' + key)
+                var label = createElement('label', {
+                  domProps: {
+                    innerHTML: meta.label
+                  },
+                  class: 'label-array'
+                })
+                var newlink = link + '.' + key
+                var objects = self.toObject(
+                  data[key],
+                  createElement,
+                  createElement('ul', {}, []),
+                  newlink
+                )
+                list.children.push(createElement('li', {}, [label, objects]))
+              }
+            }
+            return list
+          }
+        }
+      },
+      render: function(createElement) {
+        var self = this
+
+        var wrapper = self.toObject(
+          self.$data.data,
+          createElement,
+          createElement('ul', {}, []),
+          'config'
+        )
+        var btn = createElement('button', {
+          domProps: {
+            innerHTML: 'save'
+          },
+          class: 'control',
+          on: {
+            click: function(event) {
+              //self.saveModule()
+            }
+          }
+        })
+        return createElement('div', {}, [btn, wrapper])
+      },
+      data: {
+        name: 'Hello',
+        data: {
+          title: 'title',
+          age: '20',
+          tags: ['html', 'css', 'js'],
+          routes: [
+            {
+              id: '',
+              name: '',
+              subroutes: [
+                {
+                  id: '',
+                  name: ''
+                }
+              ]
+            }
+          ],
+          hotel: {
+            name: '国际五星尊贵凯园景房或同级',
+            intro: '',
+            tags: ['html', 'css', 'js'],
+            address: '',
+            room: {
+              model: '',
+              area: '',
+              number: '',
+              breakfast: '',
+              imgs: ['', '', '']
+            }
+          }
+        },
+        config: {
+          title: { label: '标题', type: 'string' },
+          age: { label: '年龄', type: 'number' },
+          tags: { label: '标签', type: 'array' },
+          routes: {
+            label: '线路列表',
+            type: 'arrayobj',
+            items: {
+              label: '线路item',
+              type: 'array',
+              id: {
+                label: '线路id',
+                type: 'string'
+              },
+              name: {
+                label: '线路name',
+                type: 'string'
+              },
+              subroutes: {
+                label: '子线路列表',
+                type: 'arrayobj',
+                items: {
+                  label: '子线路item',
+                  type: 'array',
+                  id: {
+                    label: '子线路id',
+                    type: 'string'
+                  },
+                  name: {
+                    label: '子线路name',
+                    type: 'string'
+                  }
+                }
+              }
+            }
+          },
+          hotel: {
+            label: '酒店信息',
+            type: 'object',
+            name: {
+              label: '酒店名称',
+              type: 'string'
+            },
+            intro: {
+              label: '酒店介绍',
+              type: 'string'
+            },
+            tags: {
+              label: '酒店标签',
+              type: 'string'
+            },
+            address: {
+              label: '酒店地址',
+              type: 'string'
+            },
+            room: {
+              label: '房间信息',
+              type: 'object',
+              model: {
+                label: '房间类型',
+                type: 'string'
+              },
+              area: {
+                label: '房间面积',
+                type: 'number'
+              },
+              number: {
+                label: '房间数量',
+                type: 'number'
+              },
+              breakfast: {
+                label: '含早餐',
+                type: 'checkbox'
+              },
+              imgs: {
+                label: '房间照片',
+                type: 'array'
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</html>

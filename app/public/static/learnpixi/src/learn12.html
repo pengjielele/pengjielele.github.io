@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>绘制小物件虚线边框</title>
+    <style>
+        *{ margin:0;padding:0; box-sizing: border-box;}
+        html,body{ height: 100%; }
+        button{ background: blue; color:#fff; padding:5px 10px;border:none; }
+        .control{width:100%;height: 80px; position: fixed; left:0;bottom: 0; border:1px solid red; padding:10px;background: #000; opacity: .6}
+    </style>
+  </head>
+  <body>
+    <div class='control'>
+      <button id="add1">add1</button>
+      <button id="add2">add2</button>
+      <button id="add3">add3</button>
+    </div>
+  </body>
+  <script src="//f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var rects = [];
+    var isRoating = false;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb, autoResize: true });
+    document.body.appendChild(app.view);
+
+    var container1 = new PIXI.DisplayObjectContainer(),
+    container2 = new PIXI.DisplayObjectContainer(),
+    container3 = new PIXI.DisplayObjectContainer();
+
+    var object1 = PIXI.Sprite.fromImage("images/object01.png")
+    var object2 = PIXI.Sprite.fromImage("images/object02.png")
+    var object3 = PIXI.Sprite.fromImage("images/object03.png")
+    var object4 = PIXI.Sprite.fromImage("images/head.png");
+    container1.addChild(object1);
+    container2.addChild(object2);
+    container3.addChild(object3);
+
+    container1.zIndex = 5;
+    container2.zIndex = 10;
+    container3.zIndex = 20;
+    object4.zIndex = 1;
+
+    /* adding children, no matter in which order */
+    app.stage.addChild(container1);
+    app.stage.addChild(container2);
+    app.stage.addChild(container3);
+    app.stage.addChild(object4);
+
+    /* call this function whenever you added a new layer/container */
+    app.stage.updateLayersOrder = function () {
+        app.stage.children.sort(function(a,b) {
+            a.zIndex = a.zIndex || 0;
+            b.zIndex = b.zIndex || 0;
+            return b.zIndex - a.zIndex
+        });
+    };
+
+    app.stage.updateLayersOrder();
+  </script>
+</html>

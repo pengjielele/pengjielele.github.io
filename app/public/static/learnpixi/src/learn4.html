@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>设置全屏背景</title>
+    <style>
+        *{ margin:0;padding:0; box-sizing: border-box;}
+        html,body{ height: 100%; }
+        button{ background: blue; color:#fff; padding:5px 10px;border:none; }
+        .control{width:100%;height: 80px; position: fixed; left:0;bottom: 0; border:1px solid red; padding:10px;background: #000; opacity: .6}
+    </style>
+  </head>
+  <body>
+    <div class='control'>
+      <button id="room1">room1</button>
+      <button id="room2">room2</button>
+    </div>
+  </body>
+  <script src="//f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb, autoResize: true });
+    document.body.appendChild(app.view);
+
+    var bgRoom1 = PIXI.Sprite.fromImage("images/room1.jpg");
+    bgRoom1.width = app.screen.width;
+    bgRoom1.height = app.screen.height;
+
+    var bgRoom2 = PIXI.Sprite.fromImage("images/room2.jpg");
+    bgRoom2.width = app.screen.width;
+    bgRoom2.height = app.screen.height;
+
+    app.stage.addChild(bgRoom1);
+
+    $(function(){
+      $('#room1').on('click',function(){
+        bgRoom1.visible = true;
+        bgRoom2.visible = false;
+      });
+
+      $('#room2').on('click',function(){
+        app.stage.addChild(bgRoom2);
+        bgRoom1.visible = false;
+        bgRoom2.visible = true;
+      });
+    });
+  </script>
+</html>

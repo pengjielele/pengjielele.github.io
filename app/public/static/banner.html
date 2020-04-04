@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>Canvas生成歌词海报</title>
+    <style>
+      *{ margin:0;padding:0; }
+      html,body{ height: 100%; }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+  </body>
+  <script src="https://f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="https://f10.sjbly.cn/f18/1029/bklh/pixi.js"></script>
+  <script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var app = new PIXI.Application({ backgroundColor: 0xffffff, forceCanvas: true, antialias:true, resolution: 1, view: canvas });
+    app.renderer.view.style.position = "absolute";
+    app.renderer.view.style.display = "block";
+    app.renderer.view.style.zIndex = "100";
+    app.renderer.autoResize = true;
+    app.renderer.resize(750, 1334);
+
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
+    if (!HTMLCanvasElement.prototype.toBlob) {
+      Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
+        value: function (callback, type, quality) {
+          var binStr = atob( this.toDataURL(type, quality).split(',')[1] ),
+              len = binStr.length,
+              arr = new Uint8Array(len);
+
+          for (var i=0; i<len; i++ ) {
+            arr[i] = binStr.charCodeAt(i);
+          }
+          callback( new Blob( [arr], {type: type || 'image/png'} ) );
+        }
+      });
+    }
+
+    var qrImg = null, qrText = null, bgImg = null;
+
+    // 绘制背景图
+    function drawBgImg(){
+      bgImg = PIXI.Sprite.fromImage('../img/bg.png');
+      bgImg.width = app.screen.width;
+      bgImg.height = app.screen.height;
+      app.stage.addChild(bgImg);
+    }
+
+    // 绘制文字
+    function drawText(content){
+      qrText = new PIXI.Text(content);
+      qrText.position.set(200,1334-80);
+      app.stage.addChild(qrText);
+    }
+
+    $(function(){
+      
+    });
+  </script>
+</html>

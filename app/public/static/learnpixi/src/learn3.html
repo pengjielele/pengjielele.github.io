@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>腿脚旋转</title>
+    <style>
+        *{ margin:0;padding:0; }
+        html,body{ height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id='root'>
+    </div>
+  </body>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb });
+    document.body.appendChild(app.view);
+
+    var container = new PIXI.Container();
+    var l_container = new PIXI.Container();
+    var r_container = new PIXI.Container();
+    container.addChild(l_container);
+    container.addChild(r_container);
+    app.stage.addChild(container);
+
+    // Move container to the center
+    container.x = app.screen.width / 2-40;
+    container.y = app.screen.height / 2;
+
+    l_container.interactive = true;
+    r_container.interactive = true;
+    
+    var leftLeg = PIXI.Sprite.fromImage('images/left_leg.png');
+    var leftFoot = PIXI.Sprite.fromImage('images/left_foot.png');
+
+    var rightLeg = PIXI.Sprite.fromImage('images/right_leg.png');
+    var rightFoot = PIXI.Sprite.fromImage('images/right_foot.png');
+
+    leftLeg.position.set(0,0);
+    leftFoot.position.set(30,120);
+    leftLeg.anchor.set(0)
+    leftFoot.anchor.set(0.5,0.1)
+
+    leftLeg.interactive = true;
+    leftFoot.interactive = true;
+
+    rightLeg.position.set(0,0);
+    rightFoot.position.set(30,120);
+    rightFoot.anchor.set(0)
+    rightFoot.anchor.set(0.5,0.1)
+
+    rightLeg.interactive = true;
+    rightFoot.interactive = true;
+
+    leftFoot
+        .on('pointerdown', onDragStart)
+        .on('pointerup', onDragEnd)
+        .on('pointerupoutside', onDragEnd)
+        .on('pointermove', onLFDragMove)
+
+    rightFoot
+        .on('pointerdown', onDragStart)
+        .on('pointerup', onDragEnd)
+        .on('pointerupoutside', onDragEnd)
+        .on('pointermove', onRFDragMove)
+
+    leftLeg
+        .on('pointerdown', onDragStart)
+        .on('pointerup', onDragEnd)
+        .on('pointerupoutside', onDragEnd)
+        .on('pointermove', onLDragMove)
+        .on('pointerdown', function(){
+          // this.scale.x *= 1.25;
+          // this.scale.y *= 1.25;
+        });
+
+    rightLeg
+        .on('pointerdown', onDragStart)
+        .on('pointerup', onDragEnd)
+        .on('pointerupoutside', onDragEnd)
+        .on('pointermove', onRDragMove)
+
+    l_container.addChild(leftLeg);
+    l_container.addChild(leftFoot);
+
+    l_container.width = l_container.width/2;
+    l_container.height = l_container.height/2;
+      
+    l_container.pivot.x = 20;
+    l_container.pivot.y = 10;
+
+
+    r_container.position.set(40,0)
+
+    r_container.addChild(rightLeg);
+    r_container.addChild(rightFoot);
+
+    r_container.width = r_container.width/2;
+    r_container.height = r_container.height/2;
+    
+    r_container.pivot.x = 20;
+    r_container.pivot.y = 10;
+
+    
+
+    function rotateToPoint(mx, my, px, py){  
+      var self = this;
+      var dist_Y = my - py;
+      var dist_X = mx - px;
+      var angle = Math.atan2(dist_Y,dist_X);
+      //var degrees = angle * 180/ Math.PI;
+      return angle;
+    }
+
+    function onDragStart(event) {
+      this.data = event.data;
+      // this.alpha = 0.5;
+      this.dragging = true;
+    }
+
+    function onDragEnd() {
+      this.alpha = 1;
+      this.dragging = false;
+      // set the interaction data to null
+      this.data = null;
+    }
+
+    function onLDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+        var rotation = rotateToPoint(newPosition.x, newPosition.y, l_container.position.x, l_container.position.y);
+        l_container.rotation = rotation
+      }
+    }
+
+    function onRDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+        var rotation = rotateToPoint(newPosition.x, newPosition.y, r_container.position.x, r_container.position.y);
+        r_container.rotation = rotation
+      }
+    }
+
+    function onLFDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+
+        var rotation = rotateToPoint(newPosition.x, newPosition.y, leftFoot.position.x, leftFoot.position.y);
+        leftFoot.rotation = rotation
+      }
+    }
+
+    function onRFDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+
+        var rotation = rotateToPoint(newPosition.x, newPosition.y, rightFoot.position.x, rightFoot.position.y);
+        rightFoot.rotation = rotation
+      }
+    }
+
+    
+  </script>
+</html>

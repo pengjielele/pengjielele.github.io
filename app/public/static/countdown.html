@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>倒计时</title>
+  <style>
+    html, body { height: 100%; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    img { width: 100%; }
+
+    .container{  display: flex;  align-items: center; justify-content: center; height: 100%; }
+    .clock { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+    .clock .title { font-size: 17px; color: #222; }
+    .clock .countdown { font-size: 12px; color: #222; }
+    .clock .countdown .number { font-size: 40px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="clock">
+      <h3 class="title">距离2020年元旦还有</h3>
+      <div id="countdown" class="countdown"></div>
+    </div>
+  </div>
+</body>
+<script src="../assets/libs/jquery-2.0.3.min.js"></script>
+<script src="../assets/libs/jquery.countdown.min.js"></script>
+<script>
+  $(function(){
+    $('#countdown').countdown('2020/01/01', function(event) {
+      $(this).html(event.strftime(''
+        + '<span class="number">%m</span> 月 '
+        + '<span class="number">%d</span> 天 '
+        + '<span class="number">%H</span> 时 '
+        + '<span class="number">%M</span> 分 '
+        + '<span class="number">%S</span> 秒'));
+    });
+  })
+</script>
+</html>

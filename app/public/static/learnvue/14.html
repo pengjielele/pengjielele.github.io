@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>datapass</title>
+  <style>
+    *{ margin:0; padding:0; box-sizing: border-box; }
+    body{ font-size:14px; padding:20px; }
+  </style>
+  <script type="text/javascript" src="//s2.sjbly.cn/s/apps/scripts/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+    {{ message }}
+  </div>
+</body>
+<script>
+  var Child1 = {
+    props: {
+      title: {
+        type: String,
+        default: 'hello'
+      }
+    },
+    data: function () {
+      return {
+        name: 'Child1'
+      }
+    },
+    template: `
+      <div class="child">
+        <h3>I am  {{ name }}</h3>
+        <p>{{ title }}</p>
+        <button @click="$emit('sayHello',name)">sayhello</button>
+      </div>
+    `
+  }
+
+  var Child2 = {
+    props: {
+      title: {
+        type: String,
+        default: 'hello'
+      },
+      hello: {
+        type: Function
+      }
+    },
+    data: function () {
+      return {
+        name: 'Child2'
+      }
+    },
+    methods: {
+    },
+    template: `
+      <div class="child">
+        <h3>I am  {{ name }}</h3>
+        <p>{{ title }}</p>
+        <button @click="$emit('sayHello',name)">sayhello</button>
+      </div>
+    `
+  }
+
+  var Parent = {
+    components:{
+      'child1': Child1,
+      'child2': Child2
+    },
+    data: function () {
+      return {
+        name: 'Parent'
+      }
+    },
+    methods: {
+      onSayHello: function(name){
+        console.log('hello parent, from ' + name)
+      }
+    },
+    template: `
+      <div class="parent">
+        <h3>I am  {{ name }}</h3>
+        <child1 title="Hello Child1, from Parent" v-on:sayHello="onSayHello"></child1>
+        <child2 title="Hello Child2, from Parent" v-on:sayHello="onSayHello"></child2>
+      </div>
+    `
+  }
+
+  var app = new Vue({
+    el: '#app',
+    components: {
+      'parent': Parent
+    },  
+    data: {
+      message: 'Hello World!'
+    },
+    template: `
+      <div>
+        <parent></parent>
+      </div>
+    `
+  })
+</script>
+</html>

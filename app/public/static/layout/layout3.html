@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>holygrail layout demo 3</title>
+	<style>
+		h1{text-align: center;font-size: 18px;font-family: "微軟正黑體","微软雅黑"}
+		#hd, #ft { height:50px; background: #ccc; }
+        #bd { overflow: hidden; _zoom: 1; }
+            #bd div { height: 300px;}
+
+       
+        /* 负外边距的使用 */
+
+        /* 添加相对定位 ，解决layout 2的问题 */
+        .main { float: left; width: 100%; background: red; }
+        .sub { float: left; width: 190px; margin-left: -100%; background: green; position:relative;left:-190px;}
+        .extra { float: left; width: 230px; margin-left: -230px; background: blue; position:relative; right:-230px;}
+
+        /* 给父容器设置padding，解决layout 1的问题*/
+        #bd{ padding:0 230px 0 190px;}
+	</style>
+</head>
+<body>
+	<div id="page">
+		<h1>正常了，这就是圣杯布局</h1>
+		<div id="hd">
+			header
+		</div>
+		<div id="bd">
+			<div class="main">
+				main
+			</div>
+			<div class="sub">
+				sub
+			</div>
+			<div class="extra">
+				extra
+			</div>
+		</div>
+		<div id="ft">footer</div>
+	</div>
+</body>
+</html>

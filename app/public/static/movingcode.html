@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>移动的代码</title>
+  <link rel="stylesheet" href="../assets/libs/prism.css" />
+  <style>
+    *{ margin:0; padding:0;}
+    *, *::before, *::after{box-sizing:border-box; }
+    .container{
+      width:1200px;
+      height: 100vh;
+      margin: 0 auto;
+      font-size: 14px;
+      position: relative;
+    }
+    .panel{
+      position: absolute;
+      bottom: 0;
+      animation:move 8s ease-in 2s 1; //infinite
+      -webkit-animation:move 8s ease-in 2s 1;
+      animation-fill-mode: forwards;
+    }
+    .panel>pre{
+      margin:.5rem;
+    }
+    .panel.quick{
+      animation:move 3s ease-in 2s 1;
+      -webkit-animation:move 3s ease-in 2s 1;
+      animation-fill-mode: forwards;
+    }
+    .panel.slow{
+      animation:move 10s ease-in 2s 1;
+      -webkit-animation:move 10s ease-in 2s 1;
+      animation-fill-mode: forwards;
+    }
+    @keyframes move
+    {
+      from { transform:translate(0,0);}
+      to { transform:translate(0,-100vh);}
+      /*from { bottom: 0;}
+      to { bottom: 100vh;}*/
+    }
+    @-webkit-keyframes move
+    {
+      from { transform:translate(0,0);}
+      to { transform:translate(0,-100vh);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="panel quick">
+      <pre><code class="language-php">&lt;a href="#" class="tag">first&lt;/a>
+&lt;a href="#" class="tag">second&lt;/a>
+&lt;a href="#" class="tag">third&lt;/a>
+</code></pre>
+    </div>
+
+    <div class="panel slow">
+      <pre><code class="language-css">*{ margin:0; padding:0;}
+*, *::before, *::after{box-sizing:border-box; }
+</code></pre>
+    </div>
+
+    <div class="panel normal">
+      <pre><code class="language-javascript">function isArray(value){
+  return Object.prototype.toString.call(value) === "[object Array]"
+}
+</code></pre>
+    </div>
+  </div>
+</body>
+<script src="../assets/libs/prism.js"></script>
+<script src="../assets/libs/jquery-2.0.3.min.js"></script>
+<script>
+(function(){
+  document.querySelector('.quick').addEventListener("animationend", function(){
+    console.log('quick end')
+  }, false);
+
+  var container = $('.container');
+  var speeds = ['quick','normal','slow'];
+  var widths = [ 400, 500, 600];
+
+  setInterval(function(){
+    var speed = speeds[Math.floor(Math.random()*(speeds.length))];
+    var width = widths[Math.floor(Math.random()*(widths.length))];
+    var maxwidth = container.width() - width;
+    var left = Math.floor(Math.random()*(maxwidth+1));
+
+    var htmls = [];
+    htmls.push('<div class="panel '+speed+'" style="width:'+width+'px;left:'+left+'px">');
+    htmls.push('<pre class="language-php"><code class="language-php">');
+    var html = Prism.highlight('<a href="#" class="tag">first</a>\r\n<a href="#" class="tag">second</a>\r\n<a href="#" class="tag">third</a>', Prism.languages.php, 'php');
+    htmls.push(html);
+    htmls.push('</code></pre></div>');
+
+    container.append(htmls.join(''));
+  },2000)
+})();
+</script>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+  <style>
+    #app{ width: 800px; margin: 0 auto; }
+    .form-group{ margin-bottom: 0; margin-top: 15px}
+    .form-group label{ margin-bottom: 0; }
+    .form-error{ color: red; }
+  </style>
+  <script type="text/javascript" src="//s2.sjbly.cn/s/apps/scripts/vue.min.js"></script>
+  <script src="//s2.sjbly.cn/s/apps/scripts/vee-validate.min.js"></script>
+  <script src="//s2.sjbly.cn/s/apps/scripts/zh_CN.js"></script>
+</head>
+<body>
+	<div id="app">
+    <div class="form-group">
+      <label for="name">姓名</label>
+      <input v-validate="'required'" v-model="user.name" type="text" class="form-control" id="name" name="name"  placeholder="Enter name" />
+    </div>
+    <div class="form-error">{{ errors.first('name') }}</div>
+
+    <div class="form-group">
+      <label for="email">邮箱</label>
+      <input v-validate="'required'" v-model="user.email" type="email" class="form-control" id="email" name="email"  placeholder="Enter email" />
+    </div>
+    <div class="form-error">{{ errors.first('email') }}</div>
+
+    <div class="form-group">
+      <label for="name">电话</label>
+      <input v-validate="'required|phone'" v-model="user.phone" type="text" class="form-control" id="phone" name="phone"  placeholder="Enter phone" />
+    </div>
+    <div class="form-error">{{ errors.first('phone') }}</div>
+
+    <div class="form-group">
+      <label for="password">密码</label>
+      <input v-validate="'required'" v-model="user.password" type="password" class="form-control"  id="password" name="password" placeholder="Password" />
+    </div>
+    <div class="form-error">{{ errors.first('password') }}</div>
+
+    <div class="form-group">
+      <label for="city">居住城市</label>
+      <div>
+        <select v-model="user.city">
+          <option disabled value="">请选择</option>
+          <option>beijing</option>
+          <option>shanghai</option>
+          <option>hangzhou</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-error">{{ errors.first('city') }}</div>
+
+    <div class="form-group">
+      <label for="agree">是否同意授权</label>
+      <div>
+        <input v-validate="'required'" v-model="user.agree" type="checkbox"  id="agree" name="agree" />
+        <label class="form-check-label" for="agree">同意</label>
+      </div>
+    </div>
+    <div class="form-error">{{ errors.first('agree') }}</div>
+
+    <div class="form-group">
+      <label for="password">喜欢的颜色</label>
+      <div>
+        <input v-validate="'required'" v-model="user.colors" type="checkbox"  id="red" value="red"/>
+        <label class="form-check-label" for="colors">red</label>
+        <input v-validate="'required'" v-model="user.colors" type="checkbox"  id="green" value="green"/>
+        <label class="form-check-label" for="colors">green</label>
+        <input v-validate="'required'" v-model="user.colors" type="checkbox"  id="blue" value="blue"/>
+        <label class="form-check-label" for="colors">blue</label>
+      </div>
+    </div>
+    <div class="form-error">{{ errors.first('colors') }}</div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" @click="submit">Submit</button>
+    </div>
+  </div>
+</body>
+<script>
+Vue.use(VeeValidate,{
+  locale: 'zh_CN',
+  dictionary: {
+    'zh_CN': {
+      messages: {
+        required: field => '请填写' + field,
+        email: () => '请填写正确的邮箱'
+      },
+      attributes: {
+        name: '姓名',
+        email: '邮箱',
+        phone: '电话号码',
+        password: '密码',
+        city: '居住城市',
+        agree: '授权'
+      }
+    }
+  }
+});
+
+VeeValidate.Validator.extend('phone', {
+  getMessage: (field, [args]) => `请输入11位电话号码`,
+  validate: (value, [args]) => {
+    const reg = /^1[0-9]{10}$/
+    return reg.test(value)
+  }
+})
+
+var app = new Vue({
+  el: '#app',
+  methods: {
+    submit: function(){
+      this.$validator.validate().then(function(result){
+        if(!result){ return; }
+      })
+    }
+  },
+  data: {
+    user: {
+      name: '',
+      email: '',
+      password: '',
+      agree: '',
+      address: '',
+      colors: []
+    }
+  }
+})
+</script>
+</html>
