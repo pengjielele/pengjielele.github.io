@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>添加小物件</title>
+    <style>
+        *{ margin:0;padding:0; box-sizing: border-box;}
+        html,body{ height: 100%; }
+        button{ background: blue; color:#fff; padding:5px 10px;border:none; }
+        .control{width:100%;height: 80px; position: fixed; left:0;bottom: 0; border:1px solid red; padding:10px;background: #000; opacity: .6}
+    </style>
+  </head>
+  <body>
+    <div class='control'>
+      <button id="add1">add1</button>
+      <button id="add2">add2</button>
+      <button id="add3">add3</button>
+    </div>
+  </body>
+  <script src="//f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="../scripts/pixi.min.js"></script>
+  <script src="../scripts/pixi-filters.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb, autoResize: true });
+    document.body.appendChild(app.view);
+
+    var background = PIXI.Sprite.fromImage("images/room1.jpg");
+    background.width = app.screen.width;
+    background.height = app.screen.height;
+    app.stage.addChild(background);
+
+    var outlineFilterBlue = new PIXI.filters.OutlineFilter(2, 0x99ff99);
+
+
+    let rectangle = new PIXI.Graphics();
+    rectangle.lineStyle(4, 0xFF3300, 1);
+    rectangle.drawRect(100,100,50,50);
+    rectangle.endFill();
+    app.stage.addChild(rectangle);
+
+
+    function getRandom(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function onDragStart(event) {
+      this.filters = [outlineFilterBlue]
+      this.data = event.data;
+      this.alpha = 0.5;
+      this.dragging = true;
+
+    }
+
+    function onDragEnd() {
+      this.alpha = 1;
+      this.dragging = false;
+      this.data = null;
+    }
+
+    function onDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+        this.x = newPosition.x;
+        this.y = newPosition.y;
+      }
+    }
+
+    function createObject(url){
+      var object = PIXI.Sprite.fromImage(url);
+      var number = getRandom(100,150);
+      object.anchor.set(0.5);
+      object.position.set(number,number);
+      object.interactive = true;
+      object.buttonMode = true;
+      object.width = object.width/2;
+      object.height = object.height/2;
+
+      object
+        .on('pointerdown', onDragStart)
+        .on('pointerup', onDragEnd)
+        .on('pointerupoutside', onDragEnd)
+        .on('pointermove', onDragMove)
+
+      app.stage.addChild(object);
+    }
+
+    $(function(){
+      $('#add1').on('click',function(){
+        createObject('images/object01.png')
+      });
+
+      $('#add2').on('click',function(){
+        createObject('images/object02.png')
+      });
+
+      $('#add3').on('click',function(){
+        createObject('images/object03.png')
+      });
+    });
+  </script>
+</html>

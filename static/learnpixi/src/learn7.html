@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>操作面板</title>
+    <style>
+        *{ margin:0;padding:0; box-sizing: border-box;}
+        html,body{ height: 100%; }
+        button{ background: blue; color:#fff; padding:5px 10px;border:none; }
+        .control{width:100%;position: fixed; left:0;bottom: 0;/* border:1px solid red; padding:10px;background: #000; opacity: .6;*/font-size: 0;}
+        
+        .control-main{ background: rgba(0,0,0,0.55); height:90px;}
+
+        .control-bar{ display: flex; overflow-x: scroll;background: #0f0e14;padding:3px 15px;}
+        .control-bar li{ width:55px; float: left;display: flex;flex-shrink:0; align-items: center;-webkit-transition: all linear .3s}
+        .control-bar li .icon{ 
+          width: 30px;
+          height: 30px;
+          border-radius: 10px;
+          background: #413e4c url(images/icons/icon1.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li:nth-child(2) .icon{
+          background: #413e4c url(images/icons/icon2.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li:nth-child(3) .icon{
+          background: #413e4c url(images/icons/icon3.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li:nth-child(4) .icon{
+          background: #413e4c url(images/icons/icon4.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li:nth-child(5) .icon{
+          background: #413e4c url(images/icons/icon5.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li:nth-child(6) .icon{
+          background: #413e4c url(images/icons/icon6.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li:nth-child(7) .icon{
+          background: #413e4c url(images/icons/icon7.png) center no-repeat;
+          background-size:20px 20px;
+        }
+        .control-bar li .text{ color:#fff;font-size:12px;text-align: center;display: none;width: 40px;}
+        .control-bar li.active{ width: 80px; }
+        .control-bar li.active .text{display: block;}
+
+
+        .control-list .control-item{ display: none; } 
+        .control-list .control-item li.active .icon{ margin-top: -2px;}
+        .control-list .control-item li.active .text{  width:25px; border-bottom:2px solid red;}
+        .control-list .control-item .control-elements{ display:flex; align-items: center; overflow-x: scroll;}
+        .control-list .element{display: flex; align-items: center;flex-direction: column;padding:20px 0 10px 20px;}
+        .control-list .element:last-child{ padding-right: 20px; }
+        .control-list .element .icon{ margin-bottom: 10px;  }
+        .control-list .element .text{ height: 3px; }
+
+
+        .control-list .control-room li .icon{ 
+          width: 50px;
+          height: 50px;
+          border-radius: 5px;
+          background: #413e4c url(images/icons/room1.png) center no-repeat;
+          background-size:50px 50px;
+          -webkit-transition: all linear .1s;
+        }
+        .control-list .control-room li:nth-child(2) .icon{
+          background: #413e4c url(images/icons/room2.png) center no-repeat;
+          background-size:50px 50px;
+        }
+        .control-list .control-other li .icon{ 
+          width: 35px;
+          height: 35px;
+          border-radius: 5px;
+          background: url(images/icons/object1.png) center no-repeat;
+          background-size:35px 35px;
+          -webkit-transition: all linear .1s;
+        }
+        .control-list .control-other li:nth-child(2) .icon{
+          width: 22px;
+          height: 50px;
+          background: url(images/icons/object2.png) center no-repeat;
+          background-size:22px 50px;
+        }
+        .control-list .control-other li:nth-child(3) .icon{
+          width: 15px;
+          height: 47px;
+          background: url(images/icons/object3.png) center no-repeat;
+          background-size:15px 47px;
+        }
+        .control-list .control-other li:nth-child(4) .icon{
+          width: 26px;
+          height: 37px;
+          background: url(images/icons/object4.png) center no-repeat;
+          background-size:26px 37px;
+        }
+        
+    </style>
+  </head>
+  <body>
+    <div class='control'>
+      <div class="control-main">
+        <ul class="control-list js-control-list">
+          <li class="control-item control-room">
+            <ul class="control-elements js-control-room" data-tag="room">
+              <li class="element active">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+            </ul>
+          </li>
+          <li class="control-item control-other">
+            <ul class="control-elements js-control-elements" data-tag="object">
+              <li class="element active">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="control-footer">
+        <ul class="control-bar js-control-bar">
+          <li class="active"><div class="icon"></div><div class="text">选人</div></li>
+          <li><div class="icon"></div><div class="text">朝向</div></li>
+          <li><div class="icon"></div><div class="text">衣服</div></li>
+          <li><div class="icon"></div><div class="text">面具</div></li>
+          <li><div class="icon"></div><div class="text">发型</div></li>
+          <li><div class="icon"></div><div class="text">场景</div></li>
+          <li><div class="icon"></div><div class="text">其他</div></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script src="//f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb, autoResize: true });
+    document.body.appendChild(app.view);
+
+    var bars = ['people','toward','cloth','mask','hair','room','other'];
+    var scenes = {};
+
+    createScene('images/room1.jpg');
+
+    function createObject(url){
+      var object = PIXI.Sprite.fromImage(url);
+      var number = getRandom(100,150);
+      object.anchor.set(0.5);
+      object.position.set(number,number);
+      object.interactive = true;
+      object.buttonMode = true;
+      object.width = object.width/2;
+      object.height = object.height/2;
+
+      object
+        .on('pointerdown', onDragStart)
+        .on('pointerup', onDragEnd)
+        .on('pointerupoutside', onDragEnd)
+        .on('pointermove', onDragMove)
+
+      app.stage.addChild(object);
+    }
+
+    function createScene(url){
+      $.each(scenes,function(key,index){
+        scenes[key].visible = false;
+      })
+
+      if(!scenes[url]){
+        var scene = PIXI.Sprite.fromImage(url);
+        scene.width = app.screen.width;
+        scene.height = app.screen.height;
+        app.stage.addChild(scene);
+        scenes[url] = scene;
+      }else{
+        scenes[url].visible = true;
+      }
+    }
+
+    function getRandom(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function onDragStart(event) {
+      this.data = event.data;
+      this.alpha = 0.5;
+      this.dragging = true;
+    }
+
+    function onDragEnd() {
+      this.alpha = 1;
+      this.dragging = false;
+      this.data = null;
+    }
+
+    function onDragMove() {
+      if (this.dragging) {
+        var newPosition = this.data.getLocalPosition(this.parent);
+        this.x = newPosition.x;
+        this.y = newPosition.y;
+      }
+    }
+
+    $(function(){
+      $('.js-control-bar').on('click','li',function(){
+        var index = $(this).index();
+        var bar = bars[index];
+        $('.js-control-list .control-item').hide();
+        $('.js-control-list .control-'+bar).show();
+        $(this).addClass('active').siblings().removeClass('active')
+        $(this)[0].scrollIntoView({ block: "end", behavior: "smooth" })
+      });
+
+      $('.js-control-elements').on('click','li',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        $(this)[0].scrollIntoView({ block: "end", behavior: "smooth" });
+        var index = $(this).index() + 1;
+        var tag = $(this).parent().attr('data-tag');
+        var url = "/images/icons/"+ tag + "" + index + '.png';
+        createObject(url)
+      });
+
+      $('.js-control-room').on('click','li',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        $(this)[0].scrollIntoView({ block: "end", behavior: "smooth" });
+        var index = $(this).index() + 1;
+        var tag = $(this).parent().attr('data-tag');
+        var url = "/images/"+ tag + "" + index + '.jpg';
+        createScene(url)
+      });
+    });
+  </script>
+</html>

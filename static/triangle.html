@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSS实现箭头</title>
+  <style>
+    *{ margin:0; padding:0;}
+    *, *::before, *::after{box-sizing:border-box; }
+    .container{
+      width:800px;
+      margin: 0 auto;
+    }
+
+    .arrow{
+      width: 0;
+      height: 0;
+      margin-bottom: 10px;
+    }
+    .arrow-up{
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid red;
+    }
+    .arrow-down{
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 20px solid red;
+    }
+    .arrow-left{
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-right: 20px solid red;
+    }
+    .arrow-right{
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 20px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="arrow arrow-up"></div>
+    <div class="arrow arrow-down"></div>
+    <div class="arrow arrow-left"></div>
+    <div class="arrow arrow-right"></div>
+  </div>
+</body>
+</html>

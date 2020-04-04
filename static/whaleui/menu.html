@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>menu</title>
+  <link rel="stylesheet" href="./css/base.css" />
+</head>
+<body>
+  <div class="container">
+    <nav class="menu-nav">
+      <div class="menu-toggle js-menu-toggle">
+        <i class="fa fa-navicon"></i>
+      </div>
+      <ul class="menu-list js-menu-list">
+        <li class="menu-item"><a href="#">HOME</a></li>
+        <li class="menu-item"><a href="#">HOME</a></li>
+        <li class="menu-item"><a href="#">HOME</a></li>
+        <li class="menu-item"><a href="#">HOME</a></li>
+        <li class="menu-item"><a href="#">HOME</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+<script src="../../assets/libs/jquery-3.2.1.min.js"></script>
+<script>
+  $(function(){
+    $(".js-menu-toggle").on('click',function(){
+      $(".js-menu-list").toggle(500);
+    })
+  })
+</script>
+</html>

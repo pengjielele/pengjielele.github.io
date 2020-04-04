@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>v-for</title>
+  <style>
+    #app{ width: 800px; margin: 0 auto; }
+  </style>
+  <script type="text/javascript" src="//s2.sjbly.cn/s/apps/scripts/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+    <h4>foreach array</h4>
+    <ul>
+      <li v-for="(todo,index) in todos">
+       {{ index }} {{ todo.text }}
+      </li>
+    </ul>
+
+    <h4>foreach object</h4>
+    <ul>
+      <li v-for="(value,name) in people">
+       {{ name }} : {{ value }}
+      </li>
+    </ul>
+
+    <h4>foreach number</h4>
+    <ul>
+      <li v-for="n in 10">
+       {{ n }}
+      </li>
+    </ul>
+  </div>
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      todos: [
+        { text: 'learn vue' },
+        { text: 'learn algorithm' },
+        { text: 'learn flutter' }
+      ],
+      people: {
+        name: 'jim',
+        age: 20,
+        address: 'beijing'
+      }
+    }
+  })
+</script>
+</html>

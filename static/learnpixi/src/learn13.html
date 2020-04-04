@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="400"></canvas>
+  
+  <h1>qiphon--canvas--to--blob</h1>
+    <script>
+        var dd = document.getElementsByTagName('h1')[0]
+        dd.onclick = function () {
+            //声明img
+            var img = new Image()
+            img.crossOrigin = "Anonymous";//解决跨域图片问题，就是上面提及的
+            img.src = 'http://img1.imgtn.bdimg.com/it/u=594559231,2167829292&fm=27&gp=0.jpg'
+            //加载图片成功
+            img.onload = function () {
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+
+                var width = img.width;
+                var height = img.height;
+
+                canvas.width = width;
+                canvas.height = height;
+                //绘制到canvas上
+                ctx.drawImage(img, 0, 0, width, height);
+                document.getElementsByTagName('body')[0].appendChild(canvas);
+
+
+                //利用Blob转换，成数据
+                canvas.toBlob(function (blob) {
+                    //创建forme
+                    var form = new FormData();
+                    form.append('file', blob);
+                    form.append('img', 222);
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.open("POST", 'http://m.shijiebang.com/wxapp/halloween'); //注意跨域问题
+                    xmlHttp.send(form);
+                    xmlHttp.onreadystatechange = function () {
+                        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {　　　　　　
+                            console.log(xmlHttp.responseText);　　　　
+                        } else {　　　　　　
+                            console.log(xmlHttp.statusText);　　　　
+                        }
+                    };
+                    console.log(blob)
+                }, 'image/png');
+            }
+        }
+    </script>
+  <script>
+    
+     
+  //   window.onload = function(){
+  //     var canvas = document.getElementById('canvas');
+  //     var ctx = canvas.getContext('2d');
+  //     var image = new Image();
+  //     image.crossOrigin = "Anonymous";
+  //     image.src = "http://f8.sjbly.cn/f17/0516/wfva/bblogo.png";
+  //     image.onload = function(){
+  //       ctx.drawImage(image,0,0);
+  //       canvas.toBlob(function(blob){
+  //         var fd = new FormData();
+  //         fd.append('file', bolb, 'sprite.png');
+  //         var xhr = new XMLHttpRequest();
+  //         xhr.open('POST', 'http://m.shijiebang.com/wxapp/halloween', true);
+  //         xhr.send(fd);
+  //       },'image/png')
+  //     }
+      
+
+      // function imageToCanvas(src, cb){
+      //   var canvas = document.createElement('canvas');
+      //   var ctx = canvas.getContext('2d');
+      //   var img = new Image();
+      //   img.src = src;
+      //   img.onload = function (){
+      //     canvas.width = img.width;
+      //     canvas.height = img.height;
+      //     ctx.drawImage(img, 0, 0);
+      //     cb(canvas);
+      //   };
+      // }
+
+      // var fd = new FormData();
+      // var img1 = document.getElementById('img');
+      // imageToCanvas('http://f8.sjbly.cn/f17/0516/wfva/bblogo.png', function(canvas){
+      //   console.log(canvas)
+      // //     canvas.toBlob(function(blob){
+      // //         fd.append('img', bolb, 'sprite.png');
+      // //         var xhr = new XMLHttpRequest();
+      // //         xhr.open('POST', 'http://m.shijiebang.com/wxapp/halloween', true);
+      // //         xhr.send(fd);
+      // //     }, 'image/png');
+      // })
+    // }
+  </script>
+  </body>
+</html>

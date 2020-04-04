@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>mvvm</title>
+    <script src="../js/mvvm.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{title}} </h1>
+      <p>name: {{author.name}} {{author.age}} </p>
+      <p>phone: {{author.phone}}</p>
+      <p>address: {{author.address}}</p>
+      
+      <input v-model="title" type="text" />
+    </div>
+  </body>
+  <script>
+    var app = new Mvvm({
+      el: "#app",
+      mounted() {
+        setTimeout(() => {
+          console.log('ok')
+        },1000);
+      },
+      data: {
+        title: "hello world",
+        author: {
+          name: "Mr.L",
+          age: 20,
+          phone: "18614023234",
+          address: "beijing"
+        }
+      }
+    })
+    console.log(app);
+  </script>
+</html>

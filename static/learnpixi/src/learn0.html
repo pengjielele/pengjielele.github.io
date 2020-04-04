@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title></title>
+    <style>
+      html,body{ height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id='root'>
+    </div>
+  </body>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    let type = "WebGL";
+    if(!PIXI.utils.isWebGLSupported()){
+      type = "canvas";
+    }
+
+    PIXI.utils.sayHello(type);
+
+    var width = document.body.clientWidth;
+    var height = document.body.clientHeight;
+
+    let app = new PIXI.Application({width: width, height: height, backgroundColor: 0xffffff});
+    
+    document.body.appendChild(app.view);
+
+
+    let container = new PIXI.Container();
+
+    PIXI.loader
+      .add("headImg","images/head.png")
+      .add("bodyImg","images/body.png")
+      .add("leftArmImg","images/left_arm.png")
+      .add("leftHandImg","images/left_hand.png")
+      .add("rightArmImg","images/right_arm.png")
+      .add("rightHandImg","images/right_hand.png")
+      .add("leftLegImg","images/left_leg.png")
+      .add("rightLegImg","images/right_leg.png")
+      .add("leftFootImg","images/left_foot.png")
+      .add("rightFootImg","images/right_foot.png")
+      .load(setup);
+
+    function onLeftHandDragStart(event) {
+      // store a reference to the data
+      // the reason for this is because of multitouch
+      // we want to track the movement of this particular touch
+      this.data = event.data;
+      console.log(event)
+      this.alpha = 0.5;
+      this.dragging = true;
+    }
+
+    function onLeftHandDragEnd() {
+      this.alpha = 1;
+      this.dragging = false;
+      // set the interaction data to null
+      this.data = null;
+    }
+
+    function onLeftHandDragMove() {
+      if (this.dragging) {
+        console.log(this)
+        var newPosition = this.data.getLocalPosition(this.parent);
+        this.x = newPosition.x;
+        this.y = newPosition.y;
+      }
+    }
+
+    function onClick () {
+      console.log('click')
+      // sprite.scale.x *= 1.25;
+      // sprite.scale.y *= 1.25;
+    }
+
+    function setup() {
+      let head = new PIXI.Sprite(
+        PIXI.loader.resources.headImg.texture
+      );
+      head.position.set(width/2,200);
+
+      let body = new PIXI.Sprite(
+        PIXI.loader.resources.bodyImg.texture
+      );
+      body.position.set(width/2-20,250);
+
+      let leftArm = new PIXI.Sprite(
+        PIXI.loader.resources.leftArmImg.texture
+      );
+      leftArm.position.set(width/2-100,280);
+
+
+      let leftHand = new PIXI.Sprite(
+        PIXI.loader.resources.leftHandImg.texture
+      );
+      leftHand.position.set(width/2-180,312);
+      // leftHand
+      //   .on('touchstart', onLeftHandDragStart)
+      //   .on('touchend', onLeftHandDragEnd)
+      //   .on('touchmove', onLeftHandDragMove);
+
+      leftHand.interactive = true;
+      leftHand.buttonMode = true;
+
+      leftHand.on('pointerdown', function(){
+        this.scale.x *= 1.25;
+        this.scale.y *= 1.25;
+      });
+
+      let rightArm = new PIXI.Sprite(
+        PIXI.loader.resources.rightArmImg.texture
+      );
+      rightArm.position.set(width/2+80,280);
+
+      let rightHand = new PIXI.Sprite(
+        PIXI.loader.resources.rightHandImg.texture
+      );
+      rightHand.position.set(width/2+150,310);
+
+      let leftLeg = new PIXI.Sprite(
+        PIXI.loader.resources.leftLegImg.texture
+      );
+      leftLeg.position.set(width/2-20,455);
+
+      let rightLeg = new PIXI.Sprite(
+        PIXI.loader.resources.rightLegImg.texture
+      );
+      rightLeg.position.set(width/2+40,455);
+
+      let leftFoot = new PIXI.Sprite(
+        PIXI.loader.resources.leftFootImg.texture
+      );
+      leftFoot.position.set(width/2-15,570);
+
+      let rightFoot = new PIXI.Sprite(
+        PIXI.loader.resources.rightFootImg.texture
+      );
+      rightFoot.position.set(width/2+45,570);
+
+      container.addChild(head);
+      container.addChild(leftArm);
+      container.addChild(leftHand);
+      container.addChild(rightArm);
+      container.addChild(rightHand);
+      container.addChild(leftLeg);
+      container.addChild(rightLeg);
+      container.addChild(leftFoot);
+      container.addChild(rightFoot);
+      container.addChild(body);
+
+      app.stage.addChild(container);
+    }
+
+  </script>
+</html>

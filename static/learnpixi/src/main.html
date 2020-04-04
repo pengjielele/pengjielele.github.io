@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>绘制小人</title>
+    <link rel="stylesheet" type="text/css" href="./styles/base.css">
+  </head>
+  <body>
+    <div class='control'>
+      <div class="control-action">
+        <div class="row">
+          <div class="save js-control-save">保存</div>
+        </div>
+        <div class="row">
+          <div class="arrow js-control-close"></div>
+        </div>
+      </div>
+      <div class="control-main">
+        <ul class="control-list js-control-list">
+          <li class="control-item control-people">
+            <ul class="control-elements js-control-people" data-tag="people">
+              <li class="element">
+                <div class="icon"></div><div class="text">people1</div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text">people2</div>
+              </li>
+            </ul>
+          </li>
+          <li class="control-item control-mask">
+            <ul class="control-elements js-control-mask" data-tag="mask">
+              <li class="element">
+                <div class="icon"></div><div class="text">mask1</div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text">mask2</div>
+              </li>
+            </ul>
+          </li>
+          <li class="control-item control-room">
+            <ul class="control-elements js-control-room" data-tag="room">
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+            </ul>
+          </li>
+          <li class="control-item control-object">
+            <ul class="control-elements js-control-objects" data-tag="object">
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+              <li class="element">
+                <div class="icon"></div><div class="text"></div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="control-footer">
+        <ul class="control-bar js-control-bar">
+          <li class="active"><div class="icon"></div><div class="text">选人</div></li>
+          <li><div class="icon"></div><div class="text">面具</div></li>
+          <li><div class="icon"></div><div class="text">场景</div></li>
+          <li><div class="icon"></div><div class="text">其他</div></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script src="//f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="../scripts/pixi.min.js"></script>
+  <script src="../scripts/pixi-filters.js"></script>
+  <script src="../scripts/util.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0xffffff, forceCanvas: true });
+    // var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0xffffff, forceCanvas: true, view: document.getElementById('canvas') });
+    document.body.appendChild(app.view);
+
+    app.stage.updateLayersOrder = function () {
+      app.stage.children.sort(function(a,b) {
+        a.zIndex = a.zIndex || 0;
+        b.zIndex = b.zIndex || 0;
+        return b.zIndex - a.zIndex
+      });
+    };
+
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
+    var outlineFilterBlue = new PIXI.filters.OutlineFilter(2, 0x99ff99);
+    var outlineFilterRed = new PIXI.filters.GlowFilter(15, 2, 1, 0xff9999, 0.5)
+
+    //场景
+    var scenes = {};
+    //控制条
+    var bars = ['people','mask','room','object'];
+    //小物件
+    var objects = {};
+    //矩形框
+    var rects = [];
+    //操作框
+    var actions = null;
+    //当前操作小物件容器
+    var activeContainer = null;
+    var activeObject = null;
+
+    //清除矩形框
+    function clearRects(){
+      rects.forEach(function(item,index){
+        item.visible = false
+      });
+      actions.visible = false;
+    }
+
+    //绘制场景
+    function drawScene(url){
+      $.each(scenes,function(key,index){
+        scenes[key].visible = false;
+      })
+
+      if(!scenes[url]){
+        var scene = PIXI.Sprite.fromImage(url);
+        scene.width = app.screen.width;
+        scene.height = app.screen.height;
+        scene.interactive = true;
+        scene.buttonMode = true;
+        scene.zIndex = 100;
+        scene.on('pointerdown', function(){
+          clearRects();
+        });
+
+        app.stage.addChild(scene);
+        scenes[url] = scene;
+      }else{
+        scenes[url].visible = true;
+      }
+      app.stage.updateLayersOrder();
+    }
+
+    //绘制角色
+    function drawRole(name) {
+      var head_img = "images/"+name + "/head.png";
+      var body_img = "images/"+ name +"/body.png";
+      var left_arm_img = "images/"+ name +"/left_arm.png";
+      var left_hand_img = "images/"+ name +"/left_hand.png";
+      var right_arm_img = "images/"+ name +"/right_arm.png";
+      var right_hand_img = "images/"+ name +"/right_hand.png";
+      var left_leg_img = "images/"+ name +"/left_leg.png";
+      var left_foot_img = "images/"+ name +"/left_foot.png";
+      var right_leg_img = "images/"+ name +"/right_leg.png";
+      var right_foot_img = "images/"+ name +"/right_foot.png";
+
+      PIXI.loader
+        .add(head_img)
+        .add(body_img)
+        .add(left_arm_img)
+        .add(left_hand_img)
+        .add(right_arm_img)
+        .add(right_hand_img)
+        .add(left_leg_img)
+        .add(right_leg_img)
+        .add(left_foot_img)
+        .add(right_foot_img)
+        .load(function(){
+          var head = new PIXI.Sprite(
+              PIXI.loader.resources[head_img].texture
+          );
+          var body = new PIXI.Sprite(
+              PIXI.loader.resources[body_img].texture
+          );
+          var left_arm = new PIXI.Sprite(
+              PIXI.loader.resources[left_arm_img].texture
+          );
+          var left_hand = new PIXI.Sprite(
+              PIXI.loader.resources[left_hand_img].texture
+          );
+          var right_arm = new PIXI.Sprite(
+              PIXI.loader.resources[right_arm_img].texture
+          );
+          var right_hand = new PIXI.Sprite(
+              PIXI.loader.resources[right_hand_img].texture
+          );
+          var left_leg = new PIXI.Sprite(
+              PIXI.loader.resources[left_leg_img].texture
+          );
+          var left_foot = new PIXI.Sprite(
+              PIXI.loader.resources[left_foot_img].texture
+          );
+          var right_leg = new PIXI.Sprite(
+              PIXI.loader.resources[right_leg_img].texture
+          );
+          var right_foot = new PIXI.Sprite(
+              PIXI.loader.resources[right_foot_img].texture
+          );
+
+          var main = new PIXI.Container();
+          main.zIndex = 50;
+          var left_arm_hand = new PIXI.Container();
+          var left_leg_foot = new PIXI.Container();
+          var right_arm_hand = new PIXI.Container();
+          var right_leg_foot = new PIXI.Container();
+
+          left_arm_hand.addChild(left_arm);
+          left_arm_hand.addChild(left_hand);
+          left_leg_foot.addChild(left_foot);
+          left_leg_foot.addChild(left_leg);
+
+          right_arm_hand.addChild(right_arm);
+          right_arm_hand.addChild(right_hand);
+          right_leg_foot.addChild(right_foot);
+          right_leg_foot.addChild(right_leg);
+
+          main.addChild(left_arm_hand);
+          main.addChild(right_arm_hand);
+          main.addChild(left_leg_foot);
+          main.addChild(right_leg_foot);
+          main.addChild(body);
+          main.addChild(head);
+
+          main.width = main.width/2;
+          main.height = main.height/2;
+
+          main.position.set(app.screen.width/2,(app.screen.height)/2);
+
+          head.anchor.set(0.5);
+
+          body.anchor.set(0.5);
+          body.position.set(0,220);
+
+          right_arm.anchor.set(0.5);
+          right_arm.position.set(120,195);
+          right_hand.anchor.set(0.5,0.1);
+          right_hand.position.set(140,260);
+
+          left_arm_hand.position.set(-120,150);
+          left_arm_hand.pivot.set(50,50);
+          left_arm.position.set(-10,0);
+          left_hand.position.set(40,130);
+          left_arm.anchor.set(0);
+          left_hand.anchor.set(0.5,0.1);
+
+          right_arm_hand.position.set(110,150);
+          right_arm_hand.pivot.set(50,50);
+          right_arm.position.set(0,0);
+          right_hand.position.set(80,120);
+          right_arm.anchor.set(0);
+          right_hand.anchor.set(0.5,0);
+
+          left_leg_foot.position.set(-30,340);
+          left_leg_foot.pivot.set(50,50)
+          left_leg.position.set(0,0);
+          left_foot.position.set(30,100);
+          left_leg.anchor.set(0)
+          left_foot.anchor.set(0.5,0)
+
+          right_leg_foot.position.set(50,340);
+          right_leg_foot.pivot.set(50,50)
+          right_leg.position.set(0,0);
+          right_foot.position.set(60,115);
+          right_leg.anchor.set(0)
+          right_foot.anchor.set(0.5,0.1);
+
+          left_hand.interactive = true;
+          right_hand.interactive = true;
+          left_foot.interactive = true;
+          right_foot.interactive = true;
+          left_leg.interactive = true;
+          left_leg_foot.interactive = true;
+          right_leg_foot.interactive = true;
+          left_arm_hand.interactive = true;
+          right_arm_hand.interactive = true;
+          main.interactive = true;
+
+          left_arm_hand.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          right_arm_hand.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          left_leg_foot.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          right_leg_foot.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          left_foot.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          right_foot.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          left_hand.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          right_hand.on('pointerdown', onDragStart)
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onDragMove);
+
+          main.on('pointerdown', function(event){
+                this.data = event.data;
+                this.alpha = 0.5;
+                this.dragging = true;
+              })
+              .on('pointerup', onDragEnd)
+              .on('pointerupoutside', onDragEnd)
+              .on('pointermove', onObjectDragMove);
+
+          app.stage.addChild(main);
+      });
+    }
+
+    //绘制小物件
+    function drawObject(url){
+      var object = null;
+
+      if(objects[url]){
+        object = PIXI.Sprite.fromImage(url);
+        setup(object);
+      }else{
+        PIXI.loader
+          .add(url)
+          .load(function(){
+            object = new PIXI.Sprite(
+              PIXI.loader.resources[url].texture
+            );
+            objects[url] = true;
+            setup(object);
+        })
+      }
+
+      function setup(object){
+        var positionX = positionY = getRandom(100,150);
+
+        var container = new PIXI.Container();
+        container.interactive = true;
+        container.buttonMode = true;
+        container.position.set(positionX,positionY);
+        container.degrees = 0;
+        container.zIndex = 20;
+
+        object.width = object.width/2;
+        object.height = object.height/2;
+
+        var rect = drawRect(object.getGlobalPosition().x-10,object.getGlobalPosition().y-10,object.width+20,object.height+20,1)
+        rect.interactive = true;
+        rect.buttonMode = true;
+        rect.visible = false;
+
+        rects.push(rect);
+
+        container.addChild(rect);
+        container.addChild(object);
+
+        container.pivot.set(container.width/2,container.height/2);
+
+        container.rotation = 0;
+        
+        container
+          .on('pointerdown', onObjectDragStart)
+          .on('pointerup', onDragEnd)
+          .on('pointerupoutside', onDragEnd)
+          .on('pointermove', onObjectDragMove)
+
+        app.stage.addChild(container);
+      }
+    }
+
+    //绘制操作按钮
+    function drawAction(){
+      actions = new PIXI.Container();
+      actions.position.set(app.screen.width-50,50);
+      actions.filters = [outlineFilterBlue];
+      actions.visible = false;
+      actions.zIndex = 5;
+
+      var close = PIXI.Sprite.fromImage("images/close.png");
+      close.position.set(0,0);
+      close.interactive = true;
+      close.buttonMode = true;
+      close.on('pointerdown', function(){
+        app.stage.removeChild(activeContainer);
+        actions.visible = false;
+      });
+
+      var zoomin = PIXI.Sprite.fromImage("images/zoomin.png");
+      zoomin.position.set(0,35);
+      zoomin.interactive = true;
+      zoomin.buttonMode = true;
+      zoomin.on('pointerdown', function(){
+        activeContainer.scale.x *= 1.25;
+        activeContainer.scale.y *= 1.25;
+      });
+
+      var zoomout = PIXI.Sprite.fromImage("images/zoomout.png");
+      zoomout.position.set(0,70);
+      zoomout.interactive = true;
+      zoomout.buttonMode = true;
+      zoomout.on('pointerdown', function(){
+        activeContainer.scale.x /= 1.25;
+        activeContainer.scale.y /= 1.25;
+      });
+
+      var rotate = PIXI.Sprite.fromImage("images/rotate.png");
+      rotate.position.set(0,105);
+      rotate.interactive = true;
+      rotate.buttonMode = true;
+      rotate
+        .on('pointerdown', function(){
+          activeContainer.degrees = activeContainer.degrees+10;
+          activeContainer.rotation = activeContainer.degrees * Math.PI / 180;
+        })
+
+      actions.addChild(close);
+      actions.addChild(zoomin);
+      actions.addChild(zoomout);
+      actions.addChild(rotate);
+
+      app.stage.addChild(actions);
+    }
+
+    drawScene("images/scene/scene1.png");
+    drawRole("hulk");
+    drawAction();
+
+
+    $(function(){
+      $('.js-control-bar').on('click','li',function(){
+        var index = $(this).index();
+        var bar = bars[index];
+        $('.js-control-list .control-item').hide();
+        $('.js-control-list .control-'+bar).show();
+        $(this).addClass('active').siblings().removeClass('active')
+        $(this)[0].scrollIntoView({ block: "end", behavior: "smooth" })
+        $('.js-control-close').removeClass('close');
+      });
+
+      $('.js-control-objects').on('click','li',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        $(this)[0].scrollIntoView({ block: "end", behavior: "smooth" });
+        var index = $(this).index() + 1;
+        var tag = $(this).parent().attr('data-tag');
+        var url = "/images/object/"+ tag + "" + index + '.png';
+        drawObject(url);
+      });
+
+      $('.js-control-room').on('click','li',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        $(this)[0].scrollIntoView({ block: "end", behavior: "smooth" });
+        var index = $(this).index() + 1;
+        var tag = $(this).parent().attr('data-tag');
+        var url = "/images/"+ tag + "" + index + '.jpg';
+        drawScene(url);
+      });
+
+      $('.js-control-close').on('click',function(){
+        if($(this).hasClass('close')){
+          $(this).removeClass('close');
+          $('.js-control-bar li.active').trigger('click')
+        }else{
+          $(this).addClass('close');
+          $('.js-control-list .control-item').hide();
+        }
+      });
+
+      $('.js-control-save').on('click',function(){
+        // var image = app.view.toDataURL('image/png');
+        // console.log(image);
+        var formData = new FormData();
+
+        app.view.toBlob(function(blob){
+          formData.append('file',blob,'sprite.png');
+          var xhr = new XMLHttpRequest();
+          xhr.onload = function(e){
+            console.log(xhr.responseText)
+            if(xhr.status === 200){
+              var response = JSON.parse(xhr.responseText);
+            }
+          }
+          xhr.open("POST",'http://www.shijiebang.com/app/halloween');
+          xhr.send(formData);
+        },'image/png');
+      });
+    });
+  </script>
+</html>

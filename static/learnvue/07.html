@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>life</title>
+  <style>
+    #app{ width: 800px; margin: 0 auto; }
+  </style>
+  <script type="text/javascript" src="//s2.sjbly.cn/s/apps/scripts/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+    <p>{{ message }}</p>
+    <button v-on:click="reverse">reverse</button>
+  </div>
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello World!'
+    },
+    methods: {
+      reverse: function(){
+        this.message = this.message.split('').reverse().join('')
+      }
+    },
+    beforeCreate: function(){
+      console.log('before create')
+    },
+    created: function(){
+      console.log('created')
+      console.log(this.$el)
+    },
+    beforeMount: function(){
+      console.log('before mount')
+    },
+    mounted: function(){
+      console.log('mounted')
+      console.log(this.$el)
+    },
+    beforeUndate: function(){
+      console.log('before update')
+    },
+    updated: function(){
+      console.log('updated')
+    },
+    beforeDestory: function(){
+      
+    },
+    destoryed: function(){
+      
+    }
+  })
+</script>
+</html>

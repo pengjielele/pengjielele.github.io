@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ui</title>
+  <link rel="stylesheet" href="../assets/libs/prism.css" />
+  <style>
+    *{ margin:0; padding:0;}
+    *, *::before, *::after{box-sizing:border-box; }
+    html{ font-size: 62.5%;}
+    ul li{ list-style-type: none;}
+    .container{ padding:2rem;}
+    .block{ margin-bottom: 1.5rem;}
+    .block>.title{ margin: 1rem 0;}
+
+    .hidden1{ display: none;}
+
+    .tag{ display: inline-block; padding:0 1rem;border-radius: 0.3rem; margin:0 0.5rem 0.5rem 0;color: #6e7687;background-color: #e9ecef;font-size: 1.2rem;line-height: 2rem; }
+    .tag-rounded{ border-radius: 1rem;}
+    .tag-red{ background: #cd201f;color:#fff;}
+    .tag-green{ background: #5eba00;color: #fff;}
+    .tag-blue{ background: #467fcf; color:#fff;}
+    .tag-purple{ background: #a55eea;color:#fff;}
+    .tag-pink{ background: #f66d9b;color:#fff;}
+    .tag-orange{ background: #fd9644;color:#fff;}
+    .tag-yellow{ background: #f1c40f;color:#fff;}
+    .tag-gray{ background: #868e96;color:#fff;}
+    .tag-black{ background: #343a40;color:#fff;}
+    a.tag{ text-decoration: none;}
+    a.tag:hover{ background-color: rgba(110, 118, 135, 0.2);}
+
+    .line-title{ display: flex; align-items:center;justify-content:center; padding:1rem 0;}
+    .line-title>.line{ width:20%; border-top:1px solid #333;}
+    .line-title>.title{font-size: 2rem;padding:0 1rem;}
+
+    .line-title2{ padding: 1rem 0;text-align: center;}
+    .line-title2>.title{font-size: 2rem;padding:0 1rem;position: relative;}
+    .line-title2>.title:before,.line-title2>.title:after{ content:'';width:100%; border-top:1px solid #333;position: absolute;top:50%;transform:translate(0,-50%);}
+    .line-title2>.title:before{left:-100%;}
+    .line-title2>.title:after{right:-100%;}
+
+    .line-title3{ font-size: 2rem; position: relative; padding-left: 1.5rem;margin: 1.5rem 0;}
+    .line-title3:before{ content:''; position: absolute; top:15%; left:0;height:70%;width:0.2rem;background: #000;}
+
+    .tabs{ display: flex; margin-bottom: 2rem;}
+    .tabs li{ flex: 1 1 25%;margin-right:1rem;text-align:center;border:1px solid #39b4fb;font-size:1rem;color:#333;letter-spacing:1px;border-radius:2rem;height:2.5rem;line-height:2.5rem;}
+    .tabs li:last-child{margin-right: 0;}
+    .tabs li.active{color: #fff;background: #39b4fb;position: relative;}
+    .tabs li.active:after{content:'';width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid #39b4fb;position:absolute;left:50%;bottom:-10px;transform:translate(-50%);}
+
+    .btn{ padding:0 1rem; background: #ededed; cursor: pointer;border-radius: 0.3rem;color:#666;font-size: 1.2rem;margin-bottom:1rem;height:3rem;line-height: 3rem;border:none;}
+    a.btn{ text-align: center; display: inline-block;text-decoration: none;}
+    .btn-block{ width: 100%;}
+    .btn-rounded{ border-radius: 5rem;}
+    .btn-outline{ background: #fff; border:1px solid #ccc;}
+
+    .btn-yellow{ background: #ffec97; color:#39b4fb;}
+    .btn-blue{ background: #39b4fb;color:#fff;}
+    .btn-orange{ background: #fb6a01; color:#fff;}
+
+    .btn-yellow.btn-outline{border:1px solid  #ffec97; color:#ffec97;background: #fff;}
+    .btn-blue.btn-outline{ border: 1px solid #39b4fb;color:#39b4fb;background: #fff;}
+    .btn-orange.btn-outline{ border:1px solid  #fb6a01; color:#fb6a01;background: #fff;}
+
+    .flex-grid-list{ display: flex; flex-wrap:wrap;}
+    .flex-grid-list .flex-grid-item{ min-height: 100px; flex: 1 1 33.33%;padding-right: 1rem;padding-bottom: 1.5rem;}
+    .flex-grid-list .flex-grid-item .content{height: 100%; border:1px solid #ddd;}
+    .flex-grid-list li:nth-child(3n){ padding-right: 0;padding-left: 1rem;}
+    .flex-grid-list li:nth-child(3n-1){ padding-left:0.5rem;padding-right: 0.5rem;}
+
+    .grid-list{ display: grid; grid-template-columns: 1fr 1fr 1fr;grid-gap:1rem;grid-auto-rows:100px;}
+    .grid-list .grid-item{ border:1px solid #ddd; display: flex; align-items:center;justify-content:center;}
+
+    .nav-list{ overflow: hidden;background: #ffecb2;padding:1rem;background: #444;}
+    .nav-list li{ float:left;padding: 0.5rem 0;color: #39b4fb;text-align: center;}
+    .nav-list .nav-item{ width: 24%; }
+    .nav-list .nav-item a{ display: inline-block; padding: 0 1rem;color: #39b4fb;font-size: 1.2rem; text-decoration: none;}
+    .nav-list .nav-item.active{border-radius: 2rem;background: #39b4fb;}
+    .nav-list .nav-item.active a{ color: #ffec8a;}
+    .nav-list .nav-item.active+.nav-line{visibility: hidden;}
+
+    .nav-list2{ display: flex;align-items: center;border-bottom: 1px solid #e4e4e4; font-size: 1.4rem;font-weight: bold;}
+    .nav-list2 .nav-item{ flex: 1 1 25%; padding:1rem 0.5rem;text-align: center;}
+    .nav-list2 .nav-item.active{color: #ff6425;border-bottom: 2px solid #ff6425;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="block hidden">
+      <h2 class="title">Default Tags</h2>
+      <div class="example">
+        <div class="tags">
+          <span class="tag">first</span>
+          <span class="tag">second</span>
+          <span class="tag">third</span>
+        </div>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;span class="tag">first&lt;/span>
+&lt;span class="tag">second&lt;/span>
+&lt;span class="tag">third&lt;/span>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Link Tags</h2>
+      <div class="example">
+        <div class="tags">
+          <a href="#" class="tag">first</a>
+          <a href="#" class="tag">second</a>
+          <a href="#" class="tag">third</a>
+        </div>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;a href="#" class="tag">first&lt;/a>
+&lt;a href="#" class="tag">second&lt;/a>
+&lt;a href="#" class="tag">third&lt;/a>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Rounded Tags</h2>
+      <div class="example">
+        <div class="tags">
+          <span class="tag tag-rounded">first</span>
+          <span class="tag tag-rounded">second</span>
+          <span class="tag tag-rounded">third</span>
+        </div>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;span class="tag tag-rounded">first&lt;/span>
+&lt;span class="tag tag-rounded">second&lt;/span>
+&lt;span class="tag tag-rounded">third&lt;/span>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Colored Tags</h2>
+      <div class="example">
+        <div class="tags">
+          <span class="tag tag-red">Red</span>
+          <span class="tag tag-green">Green</span>
+          <span class="tag tag-blue">Blue</span>
+          <span class="tag tag-purple">Purple</span>
+          <span class="tag tag-pink">Pink</span>
+          <span class="tag tag-orange">Orange</span>
+          <span class="tag tag-yellow">Yellow</span>
+          <span class="tag tag-gray">Gray</span>
+          <span class="tag tag-black">Black</span>
+        </div>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;span class="tag tag-red">Red&lt;/span>
+&lt;span class="tag tag-green">Green&lt;/span>
+&lt;span class="tag tag-blue">Blue&lt;/span>
+&lt;span class="tag tag-purple">Purple&lt;/span>
+&lt;span class="tag tag-pink">Pink&lt;/span>
+&lt;span class="tag tag-orange">Orange&lt;/span>
+&lt;span class="tag tag-yellow">Yellow&lt;/span>
+&lt;span class="tag tag-gray">Gray&lt;/span>
+&lt;span class="tag tag-black">Black&lt;/span>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Line title</h2>
+      <div class="example">
+        <div class="line-title">
+          <span class="line"></span>
+          <span class="title">专属福利</span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;div class="line-title">
+  &lt;span class="line">&lt;/span>
+  &lt;span class="title">专属福利&lt;/span>
+  &lt;span class="line">&lt;/span>
+&lt;/div>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Line title2</h2>
+      <div class="example">
+        <div class="line-title2">
+          <span class="title">专属福利</span>
+        </div>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;div class="line-title2">
+  &lt;span class="title">专属福利&lt;/span>
+&lt;/div>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Line title3</h2>
+      <div class="example">
+        <h1 class="line-title3">专属福利</h1>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;h1 class="line-title3">专属福利&lt;/h1>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Tabs</h2>
+      <div class="example">
+        <ul class="tabs">
+          <li class="active">买就送</li>
+          <li>复购礼</li>
+          <li>现金礼</li>
+          <li>生日礼</li>
+        </ul>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;ul class="tabs">
+  &lt;li class="active">买就送&lt;/li>
+  &lt;li>复购礼&lt;/li>
+  &lt;li>现金礼&lt;/li>
+  &lt;li>生日礼&lt;/li>
+&lt;/ul>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Button</h2>
+      <div class="example">
+        <button class="btn">点击查看</button>
+        <button class="btn btn-yellow">点击查看</button>
+        <button class="btn btn-blue">点击查看</button>
+        <button class="btn btn-orange">点击查看</button>
+
+        <button class="btn btn-block">点击查看</button>
+        <button class="btn btn-block btn-yellow">点击查看</button>
+        <button class="btn btn-block btn-blue">点击查看</button>
+        <button class="btn btn-block btn-orange">点击查看</button>
+
+        <button class="btn btn-rounded">点击查看</button>
+        <button class="btn btn-rounded btn-yellow">点击查看</button>
+        <button class="btn btn-rounded btn-blue">点击查看</button>
+        <button class="btn btn-rounded btn-orange">点击查看</button>
+
+        <button class="btn btn-rounded btn-block">点击查看</button>
+        <button class="btn btn-rounded btn-block btn-yellow">点击查看</button>
+        <button class="btn btn-rounded btn-block btn-blue">点击查看</button>
+        <button class="btn btn-rounded btn-block btn-orange">点击查看</button>
+
+        <button class="btn btn-rounded btn-block btn-outline">点击查看</button>
+        <button class="btn btn-rounded btn-block btn-yellow btn-outline">点击查看</button>
+        <button class="btn btn-rounded btn-block btn-blue btn-outline">点击查看</button>
+        <button class="btn btn-rounded btn-block btn-orange btn-outline">点击查看</button>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;button class="btn">点击查看&lt;/button>
+&lt;button class="btn btn-yellow">点击查看&lt;/button>
+&lt;button class="btn btn-blue">点击查看&lt;/button>
+&lt;button class="btn btn-orange">点击查看&lt;/button>
+
+&lt;button class="btn btn-block">点击查看&lt;/button>
+&lt;button class="btn btn-block btn-yellow">点击查看&lt;/button>
+&lt;button class="btn btn-block btn-blue">点击查看&lt;/button>
+&lt;button class="btn btn-block btn-orange">点击查看&lt;/button>
+
+&lt;button class="btn btn-rounded">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-yellow">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-blue">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-orange">点击查看&lt;/button>
+
+&lt;button class="btn btn-rounded btn-block">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-block btn-yellow">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-block btn-blue">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-block btn-orange">点击查看&lt;/button>
+
+&lt;button class="btn btn-rounded btn-block btn-outline">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-block btn-yellow btn-outline">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-block btn-blue btn-outline">点击查看&lt;/button>
+&lt;button class="btn btn-rounded btn-block btn-orange btn-outline">点击查看&lt;/button>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Link Button</h2>
+      <div class="example">
+        <a href="#" class="btn">点击查看</a>
+        <a href="#" class="btn btn-rounded">点击查看</a>
+        <a href="#" class="btn btn-block">点击查看</a>
+        <a href="#" class="btn btn-block btn-blue">点击查看</a>
+        <a href="#" class="btn btn-block btn-blue btn-outline">点击查看</a>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;a href="#" class="btn">点击查看&lt;/a>
+&lt;a href="#" class="btn btn-rounded">点击查看&lt;/a>
+&lt;a href="#" class="btn btn-block">点击查看&lt;/a>
+&lt;a href="#" class="btn btn-block btn-blue">点击查看&lt;/a>
+&lt;a href="#" class="btn btn-block btn-blue btn-outline">点击查看&lt;/a>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Flex Grid List</h2>
+      <div class="example">
+        <ul class="flex-grid-list">
+          <li class="flex-grid-item"><div class="content">1</div></li>
+          <li class="flex-grid-item"><div class="content">2</div></li>
+          <li class="flex-grid-item"><div class="content">3</div></li>
+          <li class="flex-grid-item"><div class="content">4</div></li>
+          <li class="flex-grid-item"><div class="content">5</div></li>
+          <li class="flex-grid-item"><div class="content">6</div></li>
+          <li class="flex-grid-item"><div class="content">7</div></li>
+          <li class="flex-grid-item"><div class="content">8</div></li>
+          <li class="flex-grid-item"><div class="content">9</div></li>
+        </ul>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;ul class="flex-grid-list">
+     &lt;li class="flex-grid-item">&lt;div class="content">1&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">2&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">3&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">4&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">5&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">6&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">7&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">8&lt;/div>&lt;/li>
+     &lt;li class="flex-grid-item">&lt;div class="content">9&lt;/div>&lt;/li>
+&lt;/ul>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Grid List</h2>
+      <div class="example">
+        <ul class="grid-list">
+          <li class="grid-item"><div class="content">1</div></li>
+          <li class="grid-item"><div class="content">2</div></li>
+          <li class="grid-item"><div class="content">3</div></li>
+          <li class="grid-item"><div class="content">4</div></li>
+          <li class="grid-item"><div class="content">5</div></li>
+          <li class="grid-item"><div class="content">6</div></li>
+          <li class="grid-item"><div class="content">7</div></li>
+          <li class="grid-item"><div class="content">8</div></li>
+          <li class="grid-item"><div class="content">9</div></li>
+        </ul>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;ul class="grid-list">
+     &lt;li class="grid-item">&lt;div class="content">1&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">2&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">3&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">4&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">5&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">6&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">7&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">8&lt;/div>&lt;/li>
+     &lt;li class="grid-item">&lt;div class="content">9&lt;/div>&lt;/li>
+&lt;/ul>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block hidden">
+      <h2 class="title">Navs</h2>
+      <div class="example">
+        <ul class="nav-list">
+          <li class="nav-item active"><a href="#">暑期畅销</a></li>
+          <li class="nav-line"><span>|</span></li>
+          <li class="nav-item"><a href="#">亲子合家欢</a></li>
+          <li class="nav-line"><span>|</span></li>
+          <li class="nav-item"><a href="#">小众旅行</a></li>
+          <li class="nav-line"><span>|</span></li>
+          <li class="nav-item"><a href="#">闺蜜情侣行</a></li>
+
+          <li class="nav-item"><a href="#">欧洲专场</a></li>
+          <li class="nav-line"><span>|</span></li>
+          <li class="nav-item"><a href="#">美加专场</a></li>
+          <li class="nav-line"><span>|</span></li>
+          <li class="nav-item"><a href="#">亚洲专场</a></li>
+          <li class="nav-line"><span>|</span></li>
+          <li class="nav-item"><a href="#">专享福利</a></li>
+        </ul>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;ul class="nav-list">
+     &lt;li class="nav-item active">&lt;a href="#">暑期畅销&lt;/a>&lt;/li>
+     &lt;li class="nav-line">&lt;span>|&lt;/span>&lt;/li>
+     &lt;li class="nav-item">&lt;a href="#">亲子合家欢&lt;/a>&lt;/li>
+     &lt;li class="nav-line">&lt;span>|&lt;/span>&lt;/li>
+     &lt;li class="nav-item">&lt;a href="#">小众旅行&lt;/a>&lt;/li>
+     &lt;li class="nav-line">&lt;span>|&lt;/span>&lt;/li>
+     &lt;li class="nav-item">&lt;a href="#">闺蜜情侣行&lt;/a>&lt;/li>
+
+     &lt;li class="nav-item">&lt;a href="#">欧洲专场&lt;/a>&lt;/li>
+     &lt;li class="nav-line">&lt;span>|&lt;/span>&lt;/li>
+     &lt;li class="nav-item">&lt;a href="#">美加专场&lt;/a>&lt;/li>
+     &lt;li class="nav-line">&lt;span>|&lt;/span>&lt;/li>
+     &lt;li class="nav-item">&lt;a href="#">亚洲专场&lt;/a>&lt;/li>
+     &lt;li class="nav-line">&lt;span>|&lt;/span>&lt;/li>
+     &lt;li class="nav-item">&lt;a href="#">专享福利&lt;/a>&lt;/li>
+&lt;/ul>
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 class="title">Navs2</h2>
+      <div class="example">
+        <nav class="nav-list2">
+          <span class="nav-item">超值欧洲</span>
+          <span class="nav-item">地道美洲</span>
+          <span class="nav-item active">纯美澳新</span>
+          <span class="nav-item">轻松亚洲</span>
+        </nav>
+      </div>
+      <div class="code">
+<pre><code class="language-php">&lt;nav class="nav-list2">
+  &lt;span class="nav-item">超值欧洲&lt;/span>
+  &lt;span class="nav-item">地道美洲&lt;/span>
+  &lt;span class="nav-item active">纯美澳新&lt;/span>
+  &lt;span class="nav-item">轻松亚洲&lt;/span>
+&lt;/nav>
+</code></pre>
+      </div>
+    </div>
+
+  </div>
+</body>
+<script src="../assets/libs/prism.js"></script>
+</html>

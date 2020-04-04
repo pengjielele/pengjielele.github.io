@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>两列瀑布流</title>
+  <style>
+    html, body { height: 100%; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    img { width: 100%; }
+
+    .waterfall { display: flex; padding: 0 15px; align-items: flex-start; }
+    .waterfall .column { flex: 1 1 50%; }
+    .waterfall .column.left { padding-right: 5px; }
+    .waterfall .column.right { padding-left: 5px; }
+    .waterfall .item { min-height: 50px; background: #fff; margin-bottom: 5px; }
+    .waterfall .item img { border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div id="waterfall" class="waterfall">
+    <div class="column left">
+    </div>
+    <div class="column right">
+    </div>
+  </div>
+</body>
+<script src="../assets/libs/jquery-2.0.3.min.js"></script>
+<script src="../assets/libs/lodash.min.js"></script>
+<script>
+  var waterfall = {
+    'template': `
+      <div class="item">
+        <img src="<%= src %>" />
+      </div>
+    `,
+    init: function(){
+      var self = this;
+      self.load();
+      $(window).on('scroll',_.debounce(self.load,200));
+    },
+    appendHtml: function(data){
+      data.height = data.height
+      var html = _.template(this.template)(data);
+      var left = $('#waterfall .left');
+      var right = $('#waterfall .right');
+      var left_height = left.height();
+      var right_height = right.height();
+      if(left_height < right_height){
+        left.append(html)
+      }else{
+        right.append(html)
+      }
+    },
+    load: function(page){
+      var self = this;
+      var scrollTop = $(window).scrollTop();
+      var winHeight = $(window).height();
+      var docHeight = $(document).height();
+      if(scrollTop + winHeight > docHeight -100 ){
+        $.ajax({
+          'url': '../assets/data/waterfall.json',
+          'dataType': 'json',
+          'success': function(res){
+            res.data.map(function(data){
+              waterfall.appendHtml(data)
+            })
+          }
+        })
+      }
+    }
+  }
+
+  waterfall.init()
+</script>
+</html>

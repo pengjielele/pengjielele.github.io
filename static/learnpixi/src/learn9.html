@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>绘制虚线矩形</title>
+    <style>
+        *{ margin:0;padding:0; box-sizing: border-box;}
+        html,body{ height: 100%; }
+        button{ background: blue; color:#fff; padding:5px 10px;border:none; }
+        .control{width:100%;height: 80px; position: fixed; left:0;bottom: 0; border:1px solid red; padding:10px;background: #000; opacity: .6}
+    </style>
+  </head>
+  <body>
+  </body>
+  <script src="//f8.sjbly.cn/f17/0509/hxoc/jquery.js"></script>
+  <script src="../scripts/pixi.min.js"></script>
+  <script type="text/javascript">
+    var winWidth = document.body.clientWidth;
+    var winHeight = document.body.clientHeight;
+
+    var app = new PIXI.Application(winWidth, winHeight, { backgroundColor: 0x1099bb, autoResize: true });
+    document.body.appendChild(app.view);
+
+    function drawdash(x0, y0, x1, y1, linewidth) {
+      var dashed = new PIXI.Graphics();
+      dashed.lineStyle(1, 0x59e3e8, 1); // linewidth,color,alpha
+      dashed.moveTo(0, 0);
+      dashed.lineTo(linewidth, 0);
+      dashed.moveTo(linewidth * 1.5, 0);
+      dashed.lineTo(linewidth * 2.5, 0);
+      var dashedtexture = dashed.generateCanvasTexture(1, 1);
+      var linelength = Math.pow(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2), 0.5);
+      var tilingSprite = new PIXI.extras.TilingSprite(dashedtexture, linelength, linewidth);
+      tilingSprite.x = x0;
+      tilingSprite.y = y0;
+      tilingSprite.rotation = angle(x0, y0, x1, y1) * Math.PI / 180;
+      tilingSprite.pivot.set(linewidth / 2, linewidth / 2);
+      return tilingSprite;
+      function angle(x0, y0, x1, y1) {
+        var diff_x = Math.abs(x1 - x0),
+        diff_y = Math.abs(y1 - y0);
+        var cita;
+        if (x1 > x0) {
+          if (y1 > y0) {
+            cita = 360 * Math.atan(diff_y / diff_x) / (2 * Math.PI);
+          } else {
+            if (y1 < y0) {
+              cita = -360 * Math.atan(diff_y / diff_x) / (2 * Math.PI);
+            } else {
+              cita = 0;
+            }
+          }
+        } else {
+          if (x1 < x0) {
+            if (y1 > y0) {
+              cita = 180 - 360 * Math.atan(diff_y / diff_x) / (2 * Math.PI);
+            } else {
+              if (y1 < y0) {
+                cita = 180 + 360 * Math.atan(diff_y / diff_x) / (2 * Math.PI);
+              } else {
+                cita = 180;
+              }
+            }
+          } else {
+            if (y1 > y0) {
+              cita = 90;
+            } else {
+              if (y1 < y0) {
+                cita = -90;
+              } else {
+                cita = 0;
+              }
+            }
+          }
+        }
+        return cita;
+      }
+    }
+
+    /* 
+     * (x,y)             (x+w,y)
+     *     -----------------
+     *     -               -
+     *     -               -
+     *     -               -
+     *     -----------------
+     * (x,y+h)           (x+w,y+h)
+    */
+    function drawRect(x,y,width,height,linewidth){
+      var top = drawdash(x,y,x+width,y,linewidth); //top border
+      var bottom = drawdash(x,y+height,x+width,y+height,linewidth);//bottom border
+      var left = drawdash(x,y,x,y+height,linewidth); //left border
+      var right = drawdash(x+width,y,x+width,y+height,linewidth); //right border
+      app.stage.addChild(top);
+      app.stage.addChild(bottom);
+      app.stage.addChild(left);
+      app.stage.addChild(right);
+    }
+
+    drawRect(100,100,50,50,1)
+  </script>
+</html>

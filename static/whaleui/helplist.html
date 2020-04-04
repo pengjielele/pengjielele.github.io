@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>block</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+</head>
+<body>
+  <div class="container">
+    <ul class="help-list js-help-list">
+      <li>
+        <div class="header">
+          <span class="title">租车所需信息</span>
+          <i class="control fa fa-chevron-up"></i>
+        </div>
+        <div class="content">
+          <p>1、衣着鞋袜要宽松，这样有助于血液循环。乘机前不要饮酒，饮酒不仅会降低血压，还让你昏昏欲睡，减少活动。</p>
+          <p>2、飞行途中多喝水或柠檬汁，柠檬汁中的柠檬酸和柠檬多酚能预防深静脉血栓。</p>
+          <p>3、尽量选择靠走廊的位置，不要靠窗。座位下方不要放置行李，让腿部有充足的活动空间。</p>
+        </div>
+      </li>
+      <li>
+        <div class="header">
+          <span class="title">租车所需信息</span>
+          <i class="control fa fa-chevron-up"></i>
+        </div>
+        <div class="content">
+          <p>1、衣着鞋袜要宽松，这样有助于血液循环。乘机前不要饮酒，饮酒不仅会降低血压，还让你昏昏欲睡，减少活动。</p>
+          <p>2、飞行途中多喝水或柠檬汁，柠檬汁中的柠檬酸和柠檬多酚能预防深静脉血栓。</p>
+          <p>3、尽量选择靠走廊的位置，不要靠窗。座位下方不要放置行李，让腿部有充足的活动空间。</p>
+        </div>
+      </li>
+      <li>
+        <div class="header">
+          <span class="title">租车所需信息</span>
+          <i class="control fa fa-chevron-up"></i>
+        </div>
+        <div class="content">
+          <p>1、衣着鞋袜要宽松，这样有助于血液循环。乘机前不要饮酒，饮酒不仅会降低血压，还让你昏昏欲睡，减少活动。</p>
+          <p>2、飞行途中多喝水或柠檬汁，柠檬汁中的柠檬酸和柠檬多酚能预防深静脉血栓。</p>
+          <p>3、尽量选择靠走廊的位置，不要靠窗。座位下方不要放置行李，让腿部有充足的活动空间。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="../../assets/libs/jquery-3.2.1.min.js"></script>
+<script>
+  $(function(){
+    $('.js-help-list li').on('click',function(){
+      var control = $(this).find('.control');
+      var content = $(this).find('.content');
+      var isUp = control.hasClass('fa-chevron-up');
+      if(isUp){
+          control.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+          content.addClass('border').show();
+      }else{
+        control.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        content.removeClass('border').hide();
+      }
+  })
+})
+</script>
+</html>
