@@ -2,7 +2,7 @@
   <div class="page-home">
     <div class="inner">
       <ul class="action-list row">
-        <li class="action-item col-4" @click="handleJump('/')">
+        <li class="action-item col-4" @click="handleJump('/')" v-if="1 === 2">
           <h1 class="title">Home</h1>
           <div class="content">
             <i class="fa fa-home fa-4x"></i>
@@ -15,9 +15,15 @@
           </div>
         </li>
         <li class="action-item col-4" @click="handleJump('/admin/welcome')">
-          <h1 class="title">Admin</h1>
+          <h1 class="title">Admin UI</h1>
           <div class="content">
             <i class="fa fa-bars fa-3x"></i>
+          </div>
+        </li>
+        <li class="action-item col-4" @click="handleJump('/icon')">
+          <h1 class="title">Icon</h1>
+          <div class="content">
+            <i class="fa fa-sun-o fa-3x"></i>
           </div>
         </li>
       </ul>
@@ -42,14 +48,14 @@
         </li>
       </ul>
       <ul class="action-list row">
-        <li class="action-item col-4" @click="handleJump('/icon')">
-          <h1 class="title">Icon</h1>
-          <div class="content">
-            <i class="fa fa-sun-o fa-3x"></i>
-          </div>
-        </li>
         <li class="action-item col-4" @click="handleJump('/color')">
           <h1 class="title">Color</h1>
+          <div class="content">
+            <i class="fa fa-th fa-3x"></i>
+          </div>
+        </li>
+        <li class="action-item col-4" @click="handleJump('/pages')">
+          <h1 class="title">Pages</h1>
           <div class="content">
             <i class="fa fa-th fa-3x"></i>
           </div>
