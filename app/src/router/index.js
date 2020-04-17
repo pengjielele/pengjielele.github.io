@@ -17,6 +17,7 @@ import FrontShare from "@/views/front/Share.vue";
 import FrontIcon from "@/views/front/Icon.vue";
 import FrontColor from "@/views/front/Color.vue";
 import FrontPage from "@/views/front/Pages.vue";
+import FrontCodeImgs from "@/views/front/CodeImgs.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
@@ -95,6 +96,11 @@ const routes = [
     path: "/pages",
     name: "pageIndex",
     component: FrontPage
+  },
+  {
+    path: "/codes",
+    name: "codeImgs",
+    component: FrontCodeImgs
   },
   {
     path: "/git",
