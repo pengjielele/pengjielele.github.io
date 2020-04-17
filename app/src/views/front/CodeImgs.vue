@@ -10,7 +10,7 @@
         <li @click="handleLook(item.id)">
           <div class="media">
             <span>{{ index + 1 }}. {{ item.title }}</span
-            ><a class="link">查看</a>
+            ><a class="link" :href="item.image" target="_blank">查看</a>
           </div>
           <template v-if="item.show"><img :src="item.image"/></template>
         </li>
@@ -58,6 +58,7 @@ export default {
 .page-codeimgs {
   width: 1000px;
   margin: 20px auto;
+  padding-bottom: 50px;
   .list {
     .item {
       margin-bottom: 10px;
