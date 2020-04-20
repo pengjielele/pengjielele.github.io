@@ -42,8 +42,13 @@ export default {
   width: 800px;
   margin: 20px auto;
   .list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px 20px;
     .item {
       margin-bottom: 15px;
+      box-shadow: 0 0 5px #ddd;
+      padding: 10px;
     }
     dt {
       font-size: 20px;
@@ -59,6 +64,9 @@ export default {
 @media screen and (max-width: 768px) {
   .page-pages {
     width: 100%;
+    .list {
+      grid-template-columns: 1fr;
+    }
   }
 }
 </style>
