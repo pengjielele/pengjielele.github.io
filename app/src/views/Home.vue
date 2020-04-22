@@ -60,6 +60,12 @@
             <i class="fa fa-th fa-3x"></i>
           </div>
         </li>
+        <li class="action-item col-4" @click="handleJump('/imgs')">
+          <h1 class="title">Imgs</h1>
+          <div class="content">
+            <i class="fa fa-th fa-3x"></i>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

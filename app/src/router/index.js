@@ -18,6 +18,7 @@ import FrontIcon from "@/views/front/Icon.vue";
 import FrontColor from "@/views/front/Color.vue";
 import FrontPage from "@/views/front/Pages.vue";
 import FrontCodeImgs from "@/views/front/CodeImgs.vue";
+import FrontTechImgs from "@/views/front/TechImgs.vue";
 
 import AdminIndex from "@/views/admin/Index.vue";
 import Welcome from "@/views/admin/Welcome.vue";
@@ -101,6 +102,11 @@ const routes = [
     path: "/codes",
     name: "codeImgs",
     component: FrontCodeImgs
+  },
+  {
+    path: "/imgs",
+    name: "techImgs",
+    component: FrontTechImgs
   },
   {
     path: "/git",

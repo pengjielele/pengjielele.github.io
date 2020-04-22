@@ -1,3 +1,3 @@
-/*! Last Build On Wed Apr 22 2020 11:22:28 GMT+0800 (China Standard Time) */
+/*! Last Build On Wed Apr 22 2020 14:43:19 GMT+0800 (China Standard Time) */
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["about"],{f820:function(t,e,n){"use strict";n.r(e);var a=function(){var t=this,e=t.$createElement;t._self._c;return t._m(0)},s=[function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"about"},[n("h1",[t._v("This is an about page")])])}],u=n("2877"),c={},i=Object(u["a"])(c,a,s,!1,null,null,null);e["default"]=i.exports}}]);
 //# sourceMappingURL=about.0f1dfe3b.js.map
